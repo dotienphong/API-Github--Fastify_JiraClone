@@ -1,0 +1,41 @@
+{
+  "name": "fastify-api",
+  "version": "1.0.0",
+  "description": "This project with Fastify.",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node --test test/**/*.test.js",
+    "start": "fastify start -l info ./src/server.js",
+    "dev": "bun run --watch ./src/server.js",
+    "build": "bun build ./src/server.js --target=bun --outfile=./dist/server.js",
+    "pretty": "prettier --write \"./**/*.{js,jsx,json}\""
+  },
+  "keywords": [],
+  "author": "Do Tien Phong",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@fastify/cookie": "^9.3.1",
+    "@fastify/cors": "^9.0.1",
+    "@fastify/rate-limit": "^9.1.0",
+    "aws-sdk": "^2.1608.0",
+    "axios": "^1.6.8",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "escape-html": "^1.0.3",
+    "fastify": "^4.26.2",
+    "fs": "^0.0.1-security",
+    "jsonwebtoken": "^9.0.2",
+    "mock-aws-s3": "^4.0.2",
+    "morgan": "^1.10.0",
+    "nock": "^13.5.4",
+    "nodemon": "^3.1.0",
+    "pg": "^8.11.5",
+    "prettier": "^3.2.5",
+    "uuid": "^9.0.1",
+    "winston": "^3.13.0"
+  }
+}
