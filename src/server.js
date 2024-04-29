@@ -31,8 +31,8 @@ app.get("/", async (req, res) => {
 app.register(allRouter, {prefix: "/api"});
 
 // Run the server!
-app.listen({port: process.env.PORT}, function (err, address) {
-  console.log(`App 🖥️ is running ❤️ on port:: ${process.env.PORT}`);
+app.listen({port: process.env.PORT || 8081}, function (err, address) {
+  console.log(`App 🖥️ is running ❤️ on port:: ${process.env.PORT || 8081}`);
   if (err) {
     fastify.log.error(err);
     process.exit(1);
