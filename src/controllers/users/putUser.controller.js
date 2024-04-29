@@ -20,7 +20,7 @@ const PutUser = async (req, res, next) => {
 
     const sql = ` UPDATE "user" SET name = '${name}' WHERE email = '${email}' `;
     await QueryDatabase(sql);
-    return {code: 200, message: "Change user success"};
+    return {code: 200, message: "Update user success"};
   } catch (error) {
     logger.error(error);
     return {code: 500, message: "Internal Server Error"};
