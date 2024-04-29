@@ -8,7 +8,7 @@ const path = require("path");
 const allRouter = require("./routes/routes");
 
 // Apply CORS middleware globally
-await app.register(cors, {
+app.register(cors, {
   //   origin: "*",
   //   methods: ["GET", "POST", "PUT", "DELETE"],
   //   allowedHeaders: ["Content-Type", "Authorization"],
