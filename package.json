@@ -16,7 +16,6 @@
   "keywords": [],
   "author": "Do Tien Phong",
   "license": "ISC",
-  "type": "module",
   "dependencies": {
     "@fastify/cookie": "^9.3.1",
     "@fastify/cors": "^9.0.1",
