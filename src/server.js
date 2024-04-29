@@ -31,7 +31,7 @@ app.get("/", async (req, res) => {
 app.register(allRouter, {prefix: "/api"});
 
 // Run the server!
-app.listen({port: process.env.PORT, host: "127.0.0.1"}, function (err, address) {
+app.listen(process.env.PORT, async (err, address) => {
   console.log(address);
   console.log(`App 🖥️ is running ❤️ on port:: ${process.env.PORT}`);
   if (err) {
