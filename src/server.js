@@ -1,5 +1,15 @@
+const http = require("http");
+let server;
+const serverFactory = (handler, opts) => {
+  server = http.createServer((req, res) => {
+    handler(req, res);
+  });
+  return server;
+};
+
 require("dotenv").config();
 const app = require("fastify")({
+  serverFactory,
   logger: true,
 });
 const cors = require("@fastify/cors");
@@ -31,11 +41,13 @@ app.get("/", async (req, res) => {
 app.register(allRouter, {prefix: "/api"});
 
 // Run the server!
-app.listen({port: process.env.PORT, host: "127.0.0.1"}, async (err, address) => {
-  console.log(address);
-  console.log(`App 🖥️ is running ❤️ on port:: ${process.env.PORT}`);
-  if (err) {
-    fastify.log.error(err);
-    process.exit(1);
-  }
+app.ready(() => {
+  server.listen({port: process.env.PORT, host: "127.0.0.1"}, async (err, address) => {
+    console.log(address);
+    console.log(`App 🖥️ is running ❤️ on port:: ${process.env.PORT}`);
+    if (err) {
+      fastify.log.error(err);
+      process.exit(1);
+    }
+  });
 });
