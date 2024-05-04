@@ -1,3 +1,4 @@
+const escape = require("escape-html");
 const jwt = require("jsonwebtoken");
 const {GenerateAccessToken, GenerateRefreshToken} = require("../../utils/generateJWT");
 const QueryDatabase = require("../../utils/queryDatabase");
@@ -10,7 +11,10 @@ const Login = async (req, res) => {
       SELECT * FROM "user";
     `;
     const data = await QueryDatabase(sql);
-    const {email, password} = req.body;
+
+    const email = escape(req.body.email);
+    const password = escape(req.body.password);
+
     const findAccount = data.rows.find((item) => item.email === email);
 
     // Check email

@@ -1,10 +1,11 @@
+const escape = require("escape-html");
 const logger = require("../../loggers/loggers.config");
 const QueryDatabase = require("../../utils/queryDatabase");
 const {v4: uuidv4, validate: validateUuid} = require("uuid");
 
 const DeleteProject = async (req, res, next) => {
   try {
-    const id = req.body.id;
+    const id = escape(req.body.id);
 
     // Check có truyền vào id hay ko
     if (!id) {
@@ -23,7 +24,7 @@ const DeleteProject = async (req, res, next) => {
     }
 
     const sql = `
-      DELETE FROM project WHERE id=${"'" + id + "'"};
+      DELETE FROM project WHERE id='${id}';
     `;
     await QueryDatabase(sql);
     return {code: 200, message: "Delete Project success"};

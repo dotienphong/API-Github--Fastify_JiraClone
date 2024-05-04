@@ -1,3 +1,4 @@
+const escape = require("escape-html");
 const logger = require("../../loggers/loggers.config");
 const QueryDatabase = require("../../utils/queryDatabase");
 const {v4: uuidv4, validate: validateUuid} = require("uuid");
@@ -17,7 +18,7 @@ const GetProject = async (req, res, next) => {
 
 const GetProjectById = async (req, res, next) => {
   try {
-    const id = req.params.id;
+    const id = escape(req.params.id);
 
     // Kiểm tra xem project_id đúng định dạng uuid ko
     const isValidUuid = validateUuid(id);
@@ -26,7 +27,7 @@ const GetProjectById = async (req, res, next) => {
     }
 
     const sql = `
-    SELECT * FROM project WHERE id=${"'" + id + "'"}
+    SELECT * FROM project WHERE id='${id}'
     `;
 
     const data = await QueryDatabase(sql);
@@ -39,7 +40,7 @@ const GetProjectById = async (req, res, next) => {
 
 const GetProjectByUser = async (req, res, next) => {
   try {
-    const email = req.params.email;
+    const email = escape(req.params.email);
 
     // Kiểm tra xem có truyền vào hay ko
     if (!email) {
@@ -49,7 +50,7 @@ const GetProjectByUser = async (req, res, next) => {
     const sql = `
       SELECT DISTINCT c.*
       FROM task a INNER JOIN "user" b ON a.user_mail = b.email INNER JOIN project c ON a.project_id = c.id 
-      WHERE b.email = ${"'" + email + "'"}
+      WHERE b.email = '${email}'
     `;
 
     const data = await QueryDatabase(sql);

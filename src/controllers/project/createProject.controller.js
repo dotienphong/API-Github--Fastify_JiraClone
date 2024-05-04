@@ -1,3 +1,4 @@
+const escape = require("escape-html");
 const logger = require("../../loggers/loggers.config");
 const QueryDatabase = require("../../utils/queryDatabase");
 
@@ -9,9 +10,16 @@ const CreateProject = async (req, res, next) => {
       return {code: 400, message: "Project name already exists"};
     }
 
+    const name = escape(req.body.name);
+    const payment = escape(req.body.payment);
+    const time_start = escape(req.body.time_start);
+    const time_end = escape(req.body.time_end);
+    const note = escape(req.body.note);
+    const priority = escape(req.body.priority);
+
     const sql = `
       INSERT INTO project (name, payment, time_start , time_end, note, priority) 
-      VALUES ('${req.body.name}', '${req.body.payment}', '${req.body.time_start}','${req.body.time_end}' ,'${req.body.note}','${req.body.priority}');
+      VALUES ('${name}', '${payment}', '${time_start}','${time_end}' ,'${note}','${priority}');
     `;
 
     await QueryDatabase(sql);
