@@ -9,20 +9,20 @@ const serverFactory = (handler, opts) => {
 };
 
 require("dotenv").config();
+const pino = require("pino");
+const pretty = require("pino-pretty");
+const stream = pretty({
+  colorize: true,
+  time: () => `,"time":"${new Date().toLocaleString("vn-VN", {timeZone: "Asia/Saigon"})}"`,
+  levelFirst: true,
+  translateTime: "SYS:yyyy-mm-dd HH:MM:ss",
+  timestampKey: "time",
+  ignore: "pid,hostname,reqId,responseTime",
+});
+
 const app = require("fastify")({
   serverFactory,
-  logger: {
-    host: false,
-    timestamp: () => `,"time":"${new Date().toLocaleString("vn-VN", {timeZone: "Asia/Saigon"})}"`,
-    serializers: {
-      req: (req) => {
-        return {
-          method: req.method,
-          url: req.url,
-        };
-      },
-    },
-  },
+  logger: pino(stream),
 });
 const cors = require("@fastify/cors");
 const rateLimit = require("@fastify/rate-limit");
