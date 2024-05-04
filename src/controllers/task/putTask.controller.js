@@ -1,16 +1,17 @@
+const escape = require("escape-html");
 const logger = require("../../loggers/loggers.config");
 const QueryDatabase = require("../../utils/queryDatabase");
 const {v4: uuidv4, validate: validateUuid} = require("uuid");
 
 const PutTask = async (req, res, next) => {
   try {
-    const user_mail = req.body.user_mail;
-    const project_id = req.body.project_id;
-    const time_start = req.body.time_start;
-    const time_end = req.body.time_end;
-    const status = req.body.status;
-    const note = req.body.note;
-    const id = req.body.id;
+    const user_mail = escape(req.body.user_mail);
+    const project_id = escape(req.body.project_id);
+    const time_start = escape(req.body.time_start);
+    const time_end = escape(req.body.time_end);
+    const status = escape(req.body.status);
+    const note = escape(req.body.note);
+    const id = escape(req.body.id);
 
     // Check có truyền vào id hay ko
     if (!id) {

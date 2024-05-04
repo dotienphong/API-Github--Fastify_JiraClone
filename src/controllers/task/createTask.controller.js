@@ -1,3 +1,4 @@
+const escape = require("escape-html");
 const logger = require("../../loggers/loggers.config");
 const QueryDatabase = require("../../utils/queryDatabase");
 const {v4: uuidv4, validate: validateUuid} = require("uuid");
@@ -11,6 +12,13 @@ const CreateTask = async (req, res, next) => {
       return;
     }
 
+    const user_mail = escape(req.body.user_mail);
+    const project_id = escape(req.body.project_id);
+    const time_start = escape(req.body.time_start);
+    const time_end = escape(req.body.time_end);
+    const status = escape(req.body.status);
+    const note = escape(req.body.note);
+
     // Check email + project_id phải trùng với cái đã có trong CSDL
     const checkEmail = await QueryDatabase(`SELECT * FROM "user" WHERE email='${req.body.user_mail}'`);
     const checkProjectId = await QueryDatabase(`SELECT * FROM project WHERE id=${"'" + req.body.project_id + "'"}`);
@@ -19,12 +27,12 @@ const CreateTask = async (req, res, next) => {
       const sql = `
         INSERT INTO Task ("user_mail", "project_id", "time_start", "time_end", "status", "note") 
         VALUES (
-          '${req.body.user_mail}',
-          '${req.body.project_id}',
-          '${req.body.time_start}',
-          '${req.body.time_end}',
-          '${req.body.status}',
-          '${req.body.note}'
+          '${user_mail}',
+          '${project_id}',
+          '${time_start}',
+          '${time_end}',
+          '${status}',
+          '${note}'
         );
       `;
       await QueryDatabase(sql);
