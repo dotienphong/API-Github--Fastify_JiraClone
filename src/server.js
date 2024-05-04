@@ -11,7 +11,18 @@ const serverFactory = (handler, opts) => {
 require("dotenv").config();
 const app = require("fastify")({
   serverFactory,
-  logger: true,
+  logger: {
+    host: false,
+    timestamp: () => `,"time":"${new Date().toLocaleString("vn-VN", {timeZone: "Asia/Saigon"})}"`,
+    serializers: {
+      req: (req) => {
+        return {
+          method: req.method,
+          url: req.url,
+        };
+      },
+    },
+  },
 });
 const cors = require("@fastify/cors");
 const rateLimit = require("@fastify/rate-limit");
