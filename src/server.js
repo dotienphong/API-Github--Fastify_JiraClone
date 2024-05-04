@@ -46,7 +46,7 @@ app.ready(() => {
   server.listen({port: process.env.PORT}, async (err, address) => {
     console.log(`App 🖥️ is running ❤️ on port:: ${process.env.PORT}`);
     if (err) {
-      console.log("Error start server 🔥 :: ", err);
+      console.warn("Error start server 🔥 :: ", err);
       fastify.log.error(err);
       process.exit(1);
     }
