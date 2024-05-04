@@ -1,3 +1,4 @@
+// Create Server
 const http = require("http");
 let server;
 const serverFactory = (handler, opts) => {
@@ -42,10 +43,10 @@ app.register(allRouter, {prefix: "/api"});
 
 // Run the server!
 app.ready(() => {
-  server.listen({port: process.env.PORT, host: "127.0.0.1"}, async (err, address) => {
-    console.log(address);
+  server.listen({port: process.env.PORT}, async (err, address) => {
     console.log(`App 🖥️ is running ❤️ on port:: ${process.env.PORT}`);
     if (err) {
+      console.log("Error start server 🔥 :: ", err);
       fastify.log.error(err);
       process.exit(1);
     }
