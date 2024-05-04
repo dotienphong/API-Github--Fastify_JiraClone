@@ -13,10 +13,7 @@ const pino = require("pino");
 const pretty = require("pino-pretty");
 const stream = pretty({
   colorize: true,
-  time: () => `,"time":"${new Date().toLocaleString("vn-VN", {timeZone: "Asia/Saigon"})}"`,
-  levelFirst: true,
   translateTime: "SYS:yyyy-mm-dd HH:MM:ss",
-  timestampKey: "time",
   ignore: "pid,hostname,reqId,responseTime",
 });
 
