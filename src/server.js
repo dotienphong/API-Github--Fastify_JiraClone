@@ -1,6 +1,6 @@
 // Create Server
+var server;
 const http = require("http");
-let server;
 const serverFactory = (handler, opts) => {
   server = http.createServer((req, res) => {
     handler(req, res);
