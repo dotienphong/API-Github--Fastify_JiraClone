@@ -26,7 +26,7 @@ const router = (router, opts, next) => {
   // User
   router.get("/user", {onRequest: [VerifyToken]}, GetUser);
   router.get("/user/:id", {onRequest: [VerifyToken]}, GetUserById);
-  router.post("/user", {onRequest: [VerifyToken]}, CreateUser);
+  router.post("/user", CreateUser);
   router.delete("/user", {onRequest: [VerifyToken]}, DeleteUser);
   router.put("/user", {onRequest: [VerifyToken]}, PutUser);
   router.put("/user/changerole", {onRequest: [VerifyToken]}, ChangeRoleUser);
