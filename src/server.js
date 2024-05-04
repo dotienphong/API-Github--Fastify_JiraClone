@@ -1,16 +1,16 @@
-// // Create Server
-// const http = require("http");
-// let server;
-// const serverFactory = (handler, opts) => {
-//   server = http.createServer((req, res) => {
-//     handler(req, res);
-//   });
-//   return server;
-// };
+// Create Server
+const http = require("http");
+let server;
+const serverFactory = (handler, opts) => {
+  server = http.createServer((req, res) => {
+    handler(req, res);
+  });
+  return server;
+};
 
 require("dotenv").config();
 const app = require("fastify")({
-  // serverFactory,
+  serverFactory,
   logger: true,
 });
 const cors = require("@fastify/cors");
@@ -42,13 +42,13 @@ app.get("/", async (req, res) => {
 app.register(allRouter, {prefix: "/api"});
 
 // Run the server!
-// app.ready(() => {
-app.listen({port: process.env.PORT}, async (err, address) => {
-  console.log(`App 🖥️ is running ❤️ on port:: ${process.env.PORT}`);
-  if (err) {
-    console.log("Error start server 🔥 :: ", err);
-    fastify.log.error(err);
-    process.exit(1);
-  }
+app.ready(() => {
+  server.listen({port: process.env.PORT}, async (err, address) => {
+    console.log(`App 🖥️ is running ❤️ on port:: ${process.env.PORT}`);
+    if (err) {
+      console.log("Error start server 🔥 :: ", err);
+      fastify.log.error(err);
+      process.exit(1);
+    }
+  });
 });
-// });
