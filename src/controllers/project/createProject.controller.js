@@ -7,6 +7,7 @@ const CreateProject = async (req, res, next) => {
     // Check name của project tạo mới ko được trùng với cái đã có trong hệ thống
     const checkName = await QueryDatabase(`SELECT * FROM project WHERE name='${req.body.name}'`);
     if (checkName.rowCount > 0) {
+      res.status(400);
       return {code: 400, message: "Project name already exists"};
     }
 
@@ -26,6 +27,7 @@ const CreateProject = async (req, res, next) => {
     return {code: 200, message: "Create project success"};
   } catch (error) {
     logger.error(error);
+    res.status(500);
     return {code: 500, message: "Internal Server Error"};
   }
 };

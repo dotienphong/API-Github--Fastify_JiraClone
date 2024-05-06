@@ -54,16 +54,19 @@ const RefreshToken = async (req, res) => {
     const authHeaders = req.headers["authorization"];
 
     if (!authHeaders) {
+      res.status(401);
       return {code: 401, message: "Can not find authorization header"};
     }
 
     const checkBearer = authHeaders.includes("Bearer");
     if (!checkBearer) {
+      res.status(401);
       return {code: 401, message: "Do not have Bearer"};
     }
 
     const token = authHeaders.replace("Bearer ", "");
     if (!token) {
+      res.status(401);
       return {code: 401, message: "Unauthorized"};
     }
 
@@ -72,6 +75,7 @@ const RefreshToken = async (req, res) => {
     return {refresh_token: refresh_token};
   } catch (error) {
     logger.error(error);
+    res.status(401);
     return {code: 401, message: "JWT expired"};
   }
 };

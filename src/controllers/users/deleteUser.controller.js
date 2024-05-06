@@ -8,12 +8,14 @@ const DeleteUser = async (req, res, next) => {
 
     // Check có truyền vào id hay không
     if (!id || id == undefined) {
+      res.status(400);
       return {code: 400, message: "Missing id"};
     }
 
     // Check id có trong CSDL hay không
     const checkId = await QueryDatabase(`SELECT * FROM "user" WHERE id='${id}'`);
     if (checkId.rowCount === 0) {
+      res.status(400);
       return {code: 400, message: "User not found"};
     }
 
@@ -24,6 +26,7 @@ const DeleteUser = async (req, res, next) => {
     return {code: 200, message: "Delete user success"};
   } catch (error) {
     logger.error(error);
+    res.status(500);
     return {code: 500, message: "Internal Server Error"};
   }
 };

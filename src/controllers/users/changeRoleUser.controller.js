@@ -10,6 +10,7 @@ const ChangeRoleUser = async (req, res, next) => {
     // Check Email có trong CSDL hay không
     const checkEmail = await QueryDatabase(`SELECT * FROM "user" WHERE email = '${email}'`);
     if (checkEmail.rowCount === 0) {
+      res.status(400);
       return {code: 400, message: "Email not found"};
     }
 
@@ -18,6 +19,7 @@ const ChangeRoleUser = async (req, res, next) => {
     return {code: 200, message: "Change role user success"};
   } catch (error) {
     logger.error(error);
+    res.status(500);
     return {code: 500, message: "Internal Server Error"};
   }
 };

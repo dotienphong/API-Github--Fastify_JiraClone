@@ -17,6 +17,7 @@ const GetUser = async (req, res, next) => {
     );
   } catch (error) {
     logger.error(error);
+    res.status(500);
     return {code: 500, message: "Internal Server Error"};
   }
 };
@@ -37,6 +38,7 @@ const GetUserById = async (req, res, next) => {
     );
   } catch (error) {
     logger.error(error);
+    res.status(500);
     return {code: 500, message: "Internal Server Error"};
   }
 };

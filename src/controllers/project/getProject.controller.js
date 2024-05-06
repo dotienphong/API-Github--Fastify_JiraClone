@@ -12,6 +12,7 @@ const GetProject = async (req, res, next) => {
     return data.rows;
   } catch (error) {
     logger.error(error);
+    res.status(500);
     return {code: 500, message: "Internal Server Error"};
   }
 };
@@ -23,6 +24,7 @@ const GetProjectById = async (req, res, next) => {
     // Kiểm tra xem project_id đúng định dạng uuid ko
     const isValidUuid = validateUuid(id);
     if (isValidUuid == false) {
+      res.status(400);
       return {code: 400, message: "Wrong format uuid"};
     }
 
@@ -34,6 +36,7 @@ const GetProjectById = async (req, res, next) => {
     return data.rows;
   } catch (error) {
     logger.error(error);
+    res.status(500);
     return {code: 500, message: "Internal Server Error"};
   }
 };
@@ -44,6 +47,7 @@ const GetProjectByUser = async (req, res, next) => {
 
     // Kiểm tra xem có truyền vào hay ko
     if (!email) {
+      res.status(400);
       return {code: 400, message: "Not have email, please check email again"};
     }
 
@@ -57,6 +61,7 @@ const GetProjectByUser = async (req, res, next) => {
     return data.rows;
   } catch (error) {
     logger.error(error);
+    res.status(500);
     return {code: 500, message: "Internal Server Error"};
   }
 };

@@ -13,9 +13,11 @@ const CreateUser = async (req, res, next) => {
     const checkEmail = await QueryDatabase(`SELECT * FROM "user" WHERE email='${email}'`);
     const checkName = await QueryDatabase(`SELECT * FROM "user" WHERE name='${name}'`);
     if (checkEmail.rowCount > 0) {
+      res.status(400);
       return {code: 400, message: "Email already exists"};
     }
     if (checkName.rowCount > 0) {
+      res.status(400);
       return {code: 400, message: "Name already exists"};
     }
     // Hash password
@@ -25,11 +27,12 @@ const CreateUser = async (req, res, next) => {
       INSERT INTO "user" (name, email, password , role) 
       VALUES ('${name}', '${email}', '${hashedPassword}','0');
     `;
-    await QueryDatabase(sql);
 
+    await QueryDatabase(sql);
     return {code: 200, message: "Create user success"};
   } catch (error) {
     logger.error(error);
+    res.status(500);
     return {code: 500, message: "Internal Server Error"};
   }
 };

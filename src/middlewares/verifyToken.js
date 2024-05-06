@@ -5,27 +5,28 @@ const logger = require("../loggers/loggers.config");
 const VerifyToken = (req, res, next) => {
   try {
     if (req.headers["authorization"] == undefined) {
-      res.send({code: 401, message: "Unauthorized"}).end();
+      res.status(401).send({code: 401, message: "Unauthorized"}).end();
     }
 
     const checkBearer = req.headers["authorization"].includes("Bearer");
     if (!checkBearer) {
-      res.send({code: 401, message: "Do not have Bearer"}).end();
+      res.status(401).send({code: 401, message: "Do not have Bearer"}).end();
     }
 
     const token = req.headers["authorization"].replace("Bearer ", "");
     if (!token) {
-      res.send({code: 401, message: "Unauthorized"}).end();
+      res.status(401).send({code: 401, message: "Unauthorized"}).end();
     }
 
     jwt.verify(token, process.env.SECRET_TOKEN, (err, decoded) => {
       if (err) {
-        res.send({code: 401, message: "JWT expired"}).end();
+        res.status(401).send({code: 401, message: "JWT expired"}).end();
       }
       next();
     });
   } catch (error) {
     logger.error(error);
+    res.status(500);
     res.send({code: 500, message: "Internal Server Error"}).end();
   }
 };
