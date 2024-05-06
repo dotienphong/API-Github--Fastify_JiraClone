@@ -19,12 +19,14 @@ const Login = async (req, res) => {
 
     // Check email
     if (!findAccount) {
+      res.status(401);
       return {code: 401, message: "Email not found"};
     }
 
     // Compare Password with database
     const checkPassword = await compareHashPassword(password, findAccount.password);
     if (checkPassword === false) {
+      res.status(401);
       return {code: 401, message: "Password is wrong"};
     }
 
@@ -42,6 +44,7 @@ const Login = async (req, res) => {
   } catch (error) {
     logger.error(error);
     console.error("Internal Server Error 🔥:: ", err);
+    res.status(500);
     return {code: 500, message: "Internal Server Error"};
   }
 };
