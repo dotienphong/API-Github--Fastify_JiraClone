@@ -1,6 +1,15 @@
+"use strict";
+require("dotenv").config();
+const http = require("http");
+const cors = require("@fastify/cors");
+const rateLimit = require("@fastify/rate-limit");
+const pino = require("pino");
+const pretty = require("pino-pretty");
+const path = require("path");
+const allRouter = require("./routes/routes");
+
 // Create Server
 var server;
-const http = require("http");
 const serverFactory = (handler, opts) => {
   server = http.createServer((req, res) => {
     handler(req, res);
@@ -8,23 +17,16 @@ const serverFactory = (handler, opts) => {
   return server;
 };
 
-require("dotenv").config();
-const pino = require("pino");
-const pretty = require("pino-pretty");
+// Config Pino-Pretty Logger
 const stream = pretty({
   colorize: true,
   translateTime: "SYS:yyyy-mm-dd HH:MM:ss",
   ignore: "pid,reqId,responseTime,req.remotePort,req.remoteAddress",
 });
-
 const app = require("fastify")({
   serverFactory,
   logger: pino(stream),
 });
-const cors = require("@fastify/cors");
-const rateLimit = require("@fastify/rate-limit");
-const path = require("path");
-const allRouter = require("./routes/routes");
 
 // Apply CORS middleware globally
 app.register(cors, {
