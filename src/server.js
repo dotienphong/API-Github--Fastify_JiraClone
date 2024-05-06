@@ -14,7 +14,7 @@ const pretty = require("pino-pretty");
 const stream = pretty({
   colorize: true,
   translateTime: "SYS:yyyy-mm-dd HH:MM:ss",
-  ignore: "pid,hostname,reqId,responseTime",
+  ignore: "pid,reqId,responseTime,req.remotePort,req.remoteAddress",
 });
 
 const app = require("fastify")({
