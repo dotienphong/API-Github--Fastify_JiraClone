@@ -34,8 +34,8 @@ const Login = async (req, res) => {
       const sql_search_role = `SELECT role FROM "user" WHERE email = '${email}'`;
       const role = await QueryDatabase(sql_search_role);
 
-      const accessToken = GenerateAccessToken({user_name: findAccount?.name, role: role.rows[0].role});
-      const refreshToken = GenerateRefreshToken({user_name: findAccount?.name, role: role.rows[0].role});
+      const accessToken = GenerateAccessToken({user_name: findAccount?.name, email: email, role: role.rows[0].role});
+      const refreshToken = GenerateRefreshToken({user_name: findAccount?.name, email: email, role: role.rows[0].role});
       return {
         access_token: accessToken,
         refresh_token: refreshToken,
@@ -71,7 +71,7 @@ const RefreshToken = async (req, res) => {
     }
 
     const decodedJWT = jwt.decode(token);
-    const refresh_token = GenerateRefreshToken({user_name: decodedJWT.user_name, role: decodedJWT.role});
+    const refresh_token = GenerateRefreshToken({user_name: decodedJWT.user_name, email: decodedJWT.email, role: decodedJWT.role});
     return {refresh_token: refresh_token};
   } catch (error) {
     logger.error(error);
