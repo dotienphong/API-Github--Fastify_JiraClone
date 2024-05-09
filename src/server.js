@@ -6,6 +6,8 @@ const rateLimit = require("@fastify/rate-limit");
 const pino = require("pino");
 const pretty = require("pino-pretty");
 const path = require("path");
+import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUi from "@fastify/swagger-ui";
 const allRouter = require("./routes/routes");
 
 // Create Server
@@ -42,8 +44,30 @@ app.register(rateLimit, {
   max: 5000, // Limit each IP to 5000 requests per `window` (here, per 5 minutes).
   statusCode: 429,
   error: "Too Many Requests",
-  message: "Too many requests from this IP 🔥🔥, please try again later !",
+  message: "Too many requests from this IP 🔥🔥, please wait a minutes !",
 });
+
+// Swagger
+const swaggerOptions = {
+  swagger: {
+    info: {
+      title: "Mockproject API Documentation",
+      description: "My Description",
+      version: "1.0.0",
+    },
+    host: "localhost",
+    schemes: ["http", "https"],
+    consumes: ["application/json"],
+    produces: ["application/json"],
+    tags: [{name: "Design API", description: "Code related end-points"}],
+  },
+};
+const swaggerUiOptions = {
+  routePrefix: "/docs",
+  exposeRoute: true,
+};
+app.register(fastifySwagger, swaggerOptions);
+app.register(fastifySwaggerUi, swaggerUiOptions);
 
 // ROUTER
 app.get("/", async (req, res) => {

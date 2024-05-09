@@ -21,6 +21,8 @@
     "@fastify/cors": "^9.0.1",
     "@fastify/env": "^4.3.0",
     "@fastify/rate-limit": "^9.1.0",
+    "@fastify/swagger": "^8.14.0",
+    "@fastify/swagger-ui": "^3.0.0",
     "aws-sdk": "^2.1608.0",
     "axios": "^1.6.8",
     "bcrypt": "^5.1.1",
