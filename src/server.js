@@ -6,8 +6,8 @@ const rateLimit = require("@fastify/rate-limit");
 const pino = require("pino");
 const pretty = require("pino-pretty");
 const path = require("path");
-import fastifySwagger from "@fastify/swagger";
-import fastifySwaggerUi from "@fastify/swagger-ui";
+const fastifySwagger = require("@fastify/swagger");
+const fastifySwaggerUi = require("@fastify/swagger-ui");
 const allRouter = require("./routes/routes");
 
 // Create Server
