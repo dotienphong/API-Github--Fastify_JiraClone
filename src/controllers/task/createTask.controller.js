@@ -8,8 +8,8 @@ const CreateTask = async (req, res, next) => {
     // Kiểm tra xem project_id đúng định dạng uuid ko
     const isValidUuid = validateUuid(req.body.project_id);
     if (isValidUuid == false) {
-      res.status(400).json({code: 400, message: "Wrong format uuid"});
-      return;
+      res.status(400);
+      return {code: 400, message: "Wrong format uuid"};
     }
 
     const user_mail = escape(req.body.user_mail);
