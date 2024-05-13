@@ -1,7 +1,7 @@
 // Function to call the API using fetch
 const API_LOCAL = "http://127.0.0.1:8080/api/login";
-const API_PI5 = "http://171.239.167.113:8080/api/login";
-const API_PI5_SUB = "http://171.239.167.113:8081/api/login";
+const API_PI5 = "http://27.75.108.177:8080/api/login";
+const API_PI5_SUB = "http://27.75.108.177:8081/api/login";
 
 async function callAPI() {
   try {

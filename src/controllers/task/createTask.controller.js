@@ -36,10 +36,10 @@ const CreateTask = async (req, res, next) => {
         );
       `;
       await QueryDatabase(sql);
-      res.status(200).json({code: 200, message: "Create task success"});
+      return {code: 200, message: "Create task success"};
     } else {
-      res.status(400).json({code: 400, message: "User or Project not match with database, please check again"});
-      return;
+      res.status(400);
+      return {code: 400, message: "User or Project not match with database, please check again"};
     }
   } catch (error) {
     logger.error(error);
