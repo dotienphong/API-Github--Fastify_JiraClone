@@ -77,8 +77,8 @@ app.register(allRouter, {prefix: "/api"});
 
 // Run the server!
 app.ready(() => {
-  server.listen({port: process.env.PORT}, async (err, address) => {
-    console.log(`App 🖥️ is running ❤️ on port:: ${process.env.PORT}`);
+  server.listen({port: process.env.PORT || 8080}, async (err, address) => {
+    console.log(`App 🖥️ is running ❤️ on port:: ${process.env.PORT || 8080}`);
     if (err) {
       console.warn("Error start server 🔥 :: ", err);
       fastify.log.error(err);
