@@ -75,8 +75,6 @@ const RefreshToken = async (req, res) => {
       process.env.REFRESH_TOKEN || "4679N2f9d70PHONG0G5fwef1adad76d1f4gvfd3PHONG07c3vffd2734b3fa4",
     );
 
-    console.log(checkVerify);
-
     const access_token = GenerateAccessToken({name: checkVerify.name, email: checkVerify.email, role: checkVerify.role});
     return {access_token: access_token};
   } catch (error) {
