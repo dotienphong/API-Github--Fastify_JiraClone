@@ -1,5 +1,5 @@
 "use strict";
-require("dotenv").config();
+require("dotenv").config({path: path.join(__dirname, "../.env")});
 const http = require("http");
 const cors = require("@fastify/cors");
 const rateLimit = require("@fastify/rate-limit");
@@ -77,8 +77,8 @@ app.register(allRouter, {prefix: "/api"});
 
 // Run the server!
 app.ready(() => {
-  server.listen({port: process.env.PORT || 4000}, async (err, address) => {
-    console.log(`App 🖥️ is running ❤️ on port:: ${process.env.PORT || 4000}`);
+  server.listen({port: process.env.PORT}, async (err, address) => {
+    console.log(`App 🖥️ is running ❤️ on port:: ${process.env.PORT}`);
     if (err) {
       console.warn("Error start server 🔥 :: ", err);
       fastify.log.error(err);
