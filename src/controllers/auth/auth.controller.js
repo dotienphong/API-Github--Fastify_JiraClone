@@ -70,13 +70,19 @@ const RefreshToken = async (req, res) => {
       return {code: 401, message: "Unauthorized"};
     }
 
-    const decodedJWT = jwt.decode(token);
-    const refresh_token = GenerateRefreshToken({name: decodedJWT.user_name, email: decodedJWT.email, role: decodedJWT.role});
-    return {refresh_token: refresh_token};
+    const checkVerify = jwt.verify(
+      token,
+      process.env.REFRESH_TOKEN || "4679N2f9d70PHONG0G5fwef1adad76d1f4gvfd3PHONG07c3vffd2734b3fa4",
+    );
+
+    console.log(checkVerify);
+
+    const access_token = GenerateAccessToken({name: checkVerify.name, email: checkVerify.email, role: checkVerify.role});
+    return {access_token: access_token};
   } catch (error) {
     logger.error(error);
     res.status(401);
-    return {code: 401, message: "JWT expired"};
+    return {code: 401, message: "Unauthorized"};
   }
 };
 
