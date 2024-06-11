@@ -1,5 +1,5 @@
 "use strict";
-require("dotenv").config({path: path.join(__dirname, "./.env")});
+require("dotenv").config();
 const http = require("http");
 const cors = require("@fastify/cors");
 const rateLimit = require("@fastify/rate-limit");
