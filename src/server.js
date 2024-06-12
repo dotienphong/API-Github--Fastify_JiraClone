@@ -4,7 +4,6 @@ const dotenv = require("dotenv");
 dotenv.config({
   path: path.join(__dirname, "../.env"),
 });
-console.log(dotenv.config());
 const http = require("http");
 const cors = require("@fastify/cors");
 const rateLimit = require("@fastify/rate-limit");
