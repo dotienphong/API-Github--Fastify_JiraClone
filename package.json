@@ -8,8 +8,8 @@
   },
   "scripts": {
     "test": "node --test test/**/*.test.js",
-    "start": "fastify start -l info ./src/server.js",
-    "dev": "bun run --watch ./src/server.js",
+    "start": "fastify start -l info ./src/server.js --env-file .env",
+    "dev": "bun run --watch ./src/server.js --env-file .env",
     "build": "bun build ./src/server.js --target=bun --outfile=./dist/server.js",
     "pretty": "prettier --write \"./**/*.{js,jsx,json}\""
   },
