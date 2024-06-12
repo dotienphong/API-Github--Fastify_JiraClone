@@ -1,12 +1,15 @@
 "use strict";
+const path = require("path");
 const dotenv = require("dotenv");
-dotenv.config({path: `./.env)`});
+dotenv.config({
+  path: path.join(__dirname, "../.env"),
+});
+console.log(dotenv.config());
 const http = require("http");
 const cors = require("@fastify/cors");
 const rateLimit = require("@fastify/rate-limit");
 const pino = require("pino");
 const pretty = require("pino-pretty");
-const path = require("path");
 const fastifySwagger = require("@fastify/swagger");
 const fastifySwaggerUi = require("@fastify/swagger-ui");
 const allRouter = require("./routes/routes");
