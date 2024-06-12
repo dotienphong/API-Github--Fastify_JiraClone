@@ -70,10 +70,7 @@ const RefreshToken = async (req, res) => {
       return {code: 401, message: "Unauthorized"};
     }
 
-    const checkVerify = jwt.verify(
-      token,
-      process.env.REFRESH_TOKEN || "4679N2f9d70PHONG0G5fwef1adad76d1f4gvfd3PHONG07c3vffd2734b3fa4",
-    );
+    const checkVerify = jwt.verify(token, process.env.REFRESH_TOKEN);
 
     const access_token = GenerateAccessToken({name: checkVerify.name, email: checkVerify.email, role: checkVerify.role});
     return {access_token: access_token};

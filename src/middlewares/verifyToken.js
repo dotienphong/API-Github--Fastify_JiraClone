@@ -18,16 +18,12 @@ const VerifyToken = (req, res, next) => {
       res.status(401).send({code: 401, message: "Unauthorized"}).end();
     }
 
-    jwt.verify(
-      token,
-      process.env.ACCESS_TOKEN || "cew3ttPb9223dfsa33f4O4679N2f9d70PHONG0G5fwef1adad76d1f4gvfd3PHONG07c3vffd2734b3fa4",
-      (err, decoded) => {
-        if (err) {
-          res.status(401).send({code: 401, message: "JWT expired"}).end();
-        }
-        next();
-      },
-    );
+    jwt.verify(token, process.env.ACCESS_TOKEN, (err, decoded) => {
+      if (err) {
+        res.status(401).send({code: 401, message: "JWT expired"}).end();
+      }
+      next();
+    });
   } catch (error) {
     logger.error(error);
     res.status(500);
