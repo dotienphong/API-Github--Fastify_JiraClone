@@ -14,13 +14,13 @@ const PutUser = async (req, res, next) => {
     }
 
     // Check Email có trong CSDL hay không
-    const checkEmail = await QueryDatabase(`SELECT * FROM "user" WHERE email = '${email}'`);
+    const checkEmail = await QueryDatabase(`SELECT * FROM "users" WHERE email = '${email}'`);
     if (checkEmail.rowCount === 0) {
       res.status(400);
       return {code: 400, message: "Email not found"};
     }
 
-    const sql = ` UPDATE "user" SET name = '${name}' WHERE email = '${email}' `;
+    const sql = ` UPDATE "users" SET name = '${name}' WHERE email = '${email}' `;
     await QueryDatabase(sql);
     return {code: 200, message: "Update user success"};
   } catch (error) {

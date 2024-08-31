@@ -5,7 +5,7 @@ const logger = require("../../loggers/loggers.config");
 const GetUser = async (req, res, next) => {
   try {
     const sql = `
-      SELECT * FROM "user";
+      SELECT * FROM "users";
     `;
 
     const data = await QueryDatabase(sql);
@@ -26,7 +26,7 @@ const GetUserById = async (req, res, next) => {
   try {
     const id = escape(req.params.id);
     const sql = `
-      SELECT * FROM "user" WHERE id = '${id}'
+      SELECT * FROM "users" WHERE id = '${id}'
     `;
 
     const data = await QueryDatabase(sql);

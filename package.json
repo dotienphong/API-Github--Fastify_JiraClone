@@ -11,7 +11,7 @@
     "start": "fastify start -l info ./src/server.js --env-file .env",
     "dev": "bun run --watch ./src/server.js --env-file .env",
     "build": "bun build ./src/server.js --target=bun --outfile=./dist/server.js",
-    "pretty": "prettier --write \"./**/*.{js,jsx,json}\""
+    "format": "prettier --write \"./**/*.{js,jsx,json}\""
   },
   "keywords": [],
   "author": "Do Tien Phong",

@@ -8,7 +8,7 @@ const logger = require("../../loggers/loggers.config");
 const Login = async (req, res) => {
   try {
     const sql = `
-      SELECT * FROM "user";
+      SELECT * FROM "users";
     `;
     const data = await QueryDatabase(sql);
 
@@ -31,7 +31,7 @@ const Login = async (req, res) => {
     }
 
     if (checkPassword === true) {
-      const sql_search_role = `SELECT role FROM "user" WHERE email = '${email}'`;
+      const sql_search_role = `SELECT role FROM "users" WHERE email = '${email}'`;
       const role = await QueryDatabase(sql_search_role);
 
       const accessToken = GenerateAccessToken({name: findAccount?.name, email: email, role: role.rows[0].role});

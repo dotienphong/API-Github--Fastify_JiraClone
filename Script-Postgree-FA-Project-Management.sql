@@ -20,7 +20,7 @@ CREATE TABLE public.Task (
     Note character varying(200) DEFAULT NULL::character varying
 );
 
-CREATE TABLE public.User (
+CREATE TABLE public.Users (
     Id uuid default uuid_generate_v4() NOT NULL,
     Email character varying(50) DEFAULT NULL::character varying,
     Password character varying(100) DEFAULT NULL::character varying,
@@ -34,7 +34,7 @@ CREATE TABLE public.User (
 
 
 
-INSERT INTO public.user
+INSERT INTO public.users
 ("email", "password", "name", "role")
 VALUES
 ('admin@gmail.com','$2b$10$AQFCuCPJh5/n7t/a2MwzI.eic8ZMfQxSxT6GI6ivDcTJan9bLH7Zy', 'admin', '1'),
@@ -55,9 +55,9 @@ VALUES
 WITH numbered_users AS (
     SELECT 
         email,
-        ROW_NUMBER() OVER (ORDER BY RANDOM()) AS user_row_number
+        ROW_NUMBER() OVER (ORDER BY RANDOM()) AS users_row_number
     FROM 
-        "user"
+        "users"
 ),
 numbered_projects AS (
     SELECT 
@@ -77,7 +77,7 @@ SELECT
 FROM 
     numbered_users AS u
 JOIN 
-    numbered_projects AS p ON u.user_row_number = p.project_row_number
+    numbered_projects AS p ON u.users_row_number = p.project_row_number
 LIMIT 10;
 
 

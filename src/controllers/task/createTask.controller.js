@@ -20,7 +20,7 @@ const CreateTask = async (req, res, next) => {
     const note = escape(req.body.note);
 
     // Check email + project_id phải trùng với cái đã có trong CSDL
-    const checkEmail = await QueryDatabase(`SELECT * FROM "user" WHERE email='${req.body.user_mail}'`);
+    const checkEmail = await QueryDatabase(`SELECT * FROM "users" WHERE email='${req.body.user_mail}'`);
     const checkProjectId = await QueryDatabase(`SELECT * FROM project WHERE id=${"'" + req.body.project_id + "'"}`);
 
     if (checkEmail.rowCount > 0 && checkProjectId.rowCount > 0 && isValidUuid == true) {

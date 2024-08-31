@@ -35,7 +35,7 @@ const app = require("fastify")({
 
 // Apply CORS middleware globally
 app.register(cors, {
-    origin: "*",
+  origin: "*",
   //   methods: ["GET", "POST", "PUT", "DELETE"],
   //   allowedHeaders: ["Content-Type", "Authorization"],
   //   credentials: true,
