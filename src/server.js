@@ -74,7 +74,7 @@ app.register(fastifySwagger, swaggerOptions);
 app.register(fastifySwaggerUi, swaggerUiOptions);
 
 // Init table database
-initTableDatabase();
+await initTableDatabase();
 
 // ROUTER
 app.get("/", async (req, res) => {

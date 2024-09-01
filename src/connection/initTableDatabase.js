@@ -14,8 +14,7 @@ const initUsersTable = async () => {
     const checkUsers = await QueryDatabase(checkIsHaveUsers);
     if (checkUsers.rows[0].exists === true) {
       return;
-    }
-    {
+    } else {
       const sql = `
         CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
         CREATE TABLE public.Users (
@@ -56,8 +55,7 @@ const initProjectTable = async () => {
     const checkProject = await QueryDatabase(checkIsHaveProject);
     if (checkProject.rows[0].exists === true) {
       return;
-    }
-    {
+    } else {
       const sql = `
         CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
         CREATE TABLE public.Project (
@@ -102,8 +100,7 @@ const initTaskTable = async () => {
     const checkTask = await QueryDatabase(checkIsHaveTask);
     if (checkTask.rows[0].exists === true) {
       return;
-    }
-    {
+    } else {
       const sql = `
         CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
         CREATE TABLE public.Task (
@@ -155,13 +152,14 @@ const initTaskTable = async () => {
   }
 };
 
-const initTableDatabase = async () => {
+const initTableDatabase = () => {
   try {
-    await initUsersTable();
-    await initProjectTable();
-    await initTaskTable();
+    initUsersTable();
+    initProjectTable();
+    initTaskTable();
     console.log("Init table database success");
   } catch (error) {
+    console.log("Error init table database :: ", error);
     logger.error(error);
   }
 };
