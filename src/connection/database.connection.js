@@ -12,4 +12,17 @@ const db = new Pool({
   connectionTimeoutMillis: 2000, // Thời gian chờ để thiết lập kết nối
 });
 
+db.on("remove", (client) => {
+  console.log("Client removed from pool");
+});
+
+db.on("end", () => {
+  console.log("Database connection pool has ended.");
+});
+
+db.on("error", (err, client) => {
+  console.error("Unexpected error on idle client", err);
+  process.exit(-1); // Thoát ứng dụng nếu gặp lỗi
+});
+
 module.exports = db;

@@ -12,7 +12,7 @@ const pretty = require("pino-pretty");
 const fastifySwagger = require("@fastify/swagger");
 const fastifySwaggerUi = require("@fastify/swagger-ui");
 const allRouter = require("./routes/routes");
-const initTableDatabase = require("./connection/initTable");
+const initTableDatabase = require("./connection/initTableDatabase");
 
 // Create Server
 var server;
