@@ -82,7 +82,8 @@ app.register(allRouter, {prefix: "/api"});
 // Run the server!
 app.ready(async () => {
   // Init table database
-  await initTableDatabase();
+  await initTableDatabase(); 
+  // Start server
   server.listen({port: process.env.PORT}, async (err, address) => {
     console.log(`App 🖥️ is running ❤️ on port:: ${process.env.PORT}`);
     if (err) {
