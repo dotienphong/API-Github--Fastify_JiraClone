@@ -12,6 +12,7 @@ const pretty = require("pino-pretty");
 const fastifySwagger = require("@fastify/swagger");
 const fastifySwaggerUi = require("@fastify/swagger-ui");
 const allRouter = require("./routes/routes");
+const initTableDatabase = require("./connection/initTable");
 
 // Create Server
 var server;
@@ -71,6 +72,9 @@ const swaggerUiOptions = {
 };
 app.register(fastifySwagger, swaggerOptions);
 app.register(fastifySwaggerUi, swaggerUiOptions);
+
+// Init table database
+await initTableDatabase();
 
 // ROUTER
 app.get("/", async (req, res) => {
