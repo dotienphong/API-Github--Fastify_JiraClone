@@ -73,9 +73,6 @@ const swaggerUiOptions = {
 app.register(fastifySwagger, swaggerOptions);
 app.register(fastifySwaggerUi, swaggerUiOptions);
 
-// Init table database
-await initTableDatabase();
-
 // ROUTER
 app.get("/", async (req, res) => {
   res.send({hello: "Home Page with Fastify"});
@@ -83,7 +80,9 @@ app.get("/", async (req, res) => {
 app.register(allRouter, {prefix: "/api"});
 
 // Run the server!
-app.ready(() => {
+app.ready(async () => {
+  // Init table database
+  await initTableDatabase();
   server.listen({port: process.env.PORT}, async (err, address) => {
     console.log(`App 🖥️ is running ❤️ on port:: ${process.env.PORT}`);
     if (err) {
