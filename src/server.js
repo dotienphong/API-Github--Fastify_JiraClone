@@ -86,7 +86,7 @@ app.ready(async () => {
   await initTableDatabase();
 
   // Redis Connection
-  // await redisClient.connect();
+  await redisClient.connect();
 
   // Start server
   server.listen({port: process.env.PORT}, async (err, address) => {
