@@ -1,4 +1,5 @@
 const redis = require("redis");
+const logger = require("../loggers/loggers.config");
 
 function createRedisClient() {
   let redisClient;
@@ -17,11 +18,11 @@ function createRedisClient() {
 
     redisClient.on("error", (error) => {
       console.error("Redis error:", error);
-      process.exit(1);
+      logger.error(err);
     });
   } catch (error) {
     console.error("Cannot connect to Redis:", error);
-    process.exit(1);
+    logger.error(err);
   }
 
   return redisClient;
