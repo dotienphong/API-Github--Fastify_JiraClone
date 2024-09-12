@@ -24,7 +24,6 @@ db.on("end", () => {
 db.on("error", (err, client) => {
   console.error("Unexpected error on idle client", err);
   logger.error(err);
-  process.exit(-1); // Thoát ứng dụng nếu gặp lỗi
 });
 
 module.exports = db;
