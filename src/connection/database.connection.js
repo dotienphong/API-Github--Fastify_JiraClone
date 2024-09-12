@@ -9,8 +9,12 @@ const db = new Pool({
   database: process.env.DB_DATABASE,
   port: process.env.DB_PORT,
   max: 1000, // Số lượng kết nối tối đa trong pool
-  // idleTimeoutMillis: 10000, // Thời gian chờ để giải phóng kết nối không sử dụng
-  // connectionTimeoutMillis: 5000, // Thời gian chờ để thiết lập kết nối
+  idleTimeoutMillis: 2000, // Thời gian chờ để giải phóng kết nối không sử dụng
+  connectionTimeoutMillis: 5000, // Thời gian chờ để thiết lập kết nối
+});
+
+db.on("connect", (client) => {
+  console.log("Database connected successfully");
 });
 
 db.on("remove", (client) => {
