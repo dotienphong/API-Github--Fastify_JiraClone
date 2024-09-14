@@ -11,8 +11,24 @@ const initUsersTable = async () => {
           AND table_name = 'users'
       );
     `;
+    const checkIsHaveRowsUsers = `
+      SELECT COUNT(*)
+      FROM users u 
+    `;
+    const addUser = `
+      INSERT INTO public.users
+        ("email", "password", "name", "role")
+      VALUES
+        ('admin@gmail.com','$2b$10$AQFCuCPJh5/n7t/a2MwzI.eic8ZMfQxSxT6GI6ivDcTJan9bLH7Zy', 'admin', '1'),
+        ('test@gmail.com','$2b$10$/A1xjClqHMOn9F.lHBm1bekWgK.TTDeJ25.sPfNrzRb1WsPj3bSh.', 'test', '0');  
+    `;
     const checkUsers = await QueryDatabase(checkIsHaveUsers);
+    const checkRowUsers = await QueryDatabase(checkIsHaveRowsUsers);
+
     if (checkUsers.rows[0].exists === true) {
+      if (checkRowUsers.rows[0].count == 0) {
+        await QueryDatabase(addUser);
+      }
       return;
     } else {
       const sql = `
@@ -26,15 +42,9 @@ const initUsersTable = async () => {
         );
       `;
       await QueryDatabase(sql);
-
-      const sql2 = `
-        INSERT INTO public.users
-          ("email", "password", "name", "role")
-        VALUES
-          ('admin@gmail.com','$2b$10$AQFCuCPJh5/n7t/a2MwzI.eic8ZMfQxSxT6GI6ivDcTJan9bLH7Zy', 'admin', '1'),
-          ('test@gmail.com','$2b$10$/A1xjClqHMOn9F.lHBm1bekWgK.TTDeJ25.sPfNrzRb1WsPj3bSh.', 'test', '0');  
-      `;
-      await QueryDatabase(sql2);
+      if (checkRowUsers.rows[0].count == 0) {
+        await QueryDatabase(addUser);
+      }
     }
   } catch (error) {
     console.log("Error init table Users :: ", error);
@@ -52,8 +62,26 @@ const initProjectTable = async () => {
           AND table_name = 'project'
       );
     `;
+    const checkIsHaveRowsProject = `
+      SELECT COUNT(*)
+      FROM project p 
+    `;
+    const addProject = `
+      INSERT INTO public.project 
+        ( name, payment , time_start  , time_end , Note, Priority )
+      VALUES
+        ('Dự án ReactJS', 100000.0,'2016-01-29T08:20:23.962','2016-02-29T08:20:23.962', '', 1), 
+        ('Dự án ReactJS', 200000.0,'2023-01-29T08:20:23.962','2024-01-29T08:20:23.962', '',1), 
+        ('Dự án Angular', 300000.0,'2024-01-29T08:20:23.962','2024-05-29T08:20:23.962', '',1),
+        ('Dự án Nodejs', 400000.0,'2023-09-29T08:20:23.962','2024-09-29T08:20:23.962', '',1); 
+    `;
     const checkProject = await QueryDatabase(checkIsHaveProject);
+    const checkRowProject = await QueryDatabase(checkIsHaveRowsProject);
+
     if (checkProject.rows[0].exists === true) {
+      if (checkRowProject.rows[0].count == 0) {
+        await QueryDatabase(addProject);
+      }
       return;
     } else {
       const sql = `
@@ -69,17 +97,9 @@ const initProjectTable = async () => {
         );
       `;
       await QueryDatabase(sql);
-
-      const sql2 = `
-        INSERT INTO public.project 
-          ( name, payment , time_start  , time_end , Note, Priority )
-        VALUES
-          ('Dự án ReactJS', 100000.0,'2016-01-29T08:20:23.962','2016-02-29T08:20:23.962', '', 1), 
-          ('Dự án ReactJS', 200000.0,'2023-01-29T08:20:23.962','2024-01-29T08:20:23.962', '',1), 
-          ('Dự án Angular', 300000.0,'2024-01-29T08:20:23.962','2024-05-29T08:20:23.962', '',1),
-          ('Dự án Nodejs', 400000.0,'2023-09-29T08:20:23.962','2024-09-29T08:20:23.962', '',1); 
-      `;
-      await QueryDatabase(sql2);
+      if (checkRowProject.rows[0].count == 0) {
+        await QueryDatabase(addProject);
+      }
     }
   } catch (error) {
     console.log("Error init table Project :: ", error);
@@ -97,25 +117,11 @@ const initTaskTable = async () => {
           AND table_name = 'task'
       );
     `;
-    const checkTask = await QueryDatabase(checkIsHaveTask);
-    if (checkTask.rows[0].exists === true) {
-      return;
-    } else {
-      const sql = `
-        CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-        CREATE TABLE public.Task (
-            Id uuid default uuid_generate_v4() NOT NULL,
-            User_Mail character varying(50) DEFAULT NULL::character varying,
-            Project_Id uuid not NULL,
-            Time_Start timestamp DEFAULT NULL::timestamp,
-            Time_End timestamp DEFAULT NULL::timestamp,
-            Status smallint,
-            Note character varying(200) DEFAULT NULL::character varying
-        );
-      `;
-      await QueryDatabase(sql);
-
-      const sql2 = `
+    const checkIsHaveRowsTask = `
+      SELECT COUNT(*)
+      FROM task t
+    `;
+    const addTask = `
         WITH numbered_users AS (
             SELECT 
                 email,
@@ -144,7 +150,32 @@ const initTaskTable = async () => {
             numbered_projects AS p ON u.users_row_number = p.project_row_number
         LIMIT 10;
       `;
-      await QueryDatabase(sql2);
+
+    const checkTask = await QueryDatabase(checkIsHaveTask);
+    const checkRowTask = await QueryDatabase(checkIsHaveRowsTask);
+
+    if (checkTask.rows[0].exists === true) {
+      if (checkRowTask.rows[0].count == 0) {
+        await QueryDatabase(addTask);
+      }
+      return;
+    } else {
+      const sql = `
+        CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+        CREATE TABLE public.Task (
+            Id uuid default uuid_generate_v4() NOT NULL,
+            User_Mail character varying(50) DEFAULT NULL::character varying,
+            Project_Id uuid not NULL,
+            Time_Start timestamp DEFAULT NULL::timestamp,
+            Time_End timestamp DEFAULT NULL::timestamp,
+            Status smallint,
+            Note character varying(200) DEFAULT NULL::character varying
+        );
+      `;
+      await QueryDatabase(sql);
+      if (checkRowTask.rows[0].count == 0) {
+        await QueryDatabase(addTask);
+      }
     }
   } catch (error) {
     console.log("Error init table Task :: ", error);
