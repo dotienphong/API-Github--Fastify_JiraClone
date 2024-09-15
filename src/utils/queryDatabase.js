@@ -10,7 +10,7 @@ const QueryDatabase = async (sql) => {
   } catch (err) {
     console.error("Database Query Error 🔥:: ");
     logger.error(err);
-    throw err; // Ném lại lỗi để xử lý ở nơi gọi hàm
+    // throw err; // Ném lại lỗi để xử lý ở nơi gọi hàm
   }
 };
 
