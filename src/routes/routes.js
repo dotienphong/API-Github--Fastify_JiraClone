@@ -1,4 +1,4 @@
-const {Login, RefreshToken} = require("../controllers/auth/auth.controller");
+const {Login, RefreshToken, SignUp} = require("../controllers/auth/auth.controller");
 const CreateProject = require("../controllers/project/createProject.controller");
 const DeleteProject = require("../controllers/project/deleteProject.controller");
 const {GetProject, GetProjectById, GetProjectByUser} = require("../controllers/project/getProject.controller");
@@ -22,6 +22,7 @@ const router = (router, opts, next) => {
   // Auth
   router.post("/login", Login);
   router.get("/refresh-token", RefreshToken);
+  router.post("/signup", SignUp);
 
   // User
   router.get("/user", {onRequest: [VerifyToken]}, GetUser);

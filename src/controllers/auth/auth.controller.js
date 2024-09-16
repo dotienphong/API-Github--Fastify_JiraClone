@@ -2,7 +2,7 @@ const escape = require("escape-html");
 const jwt = require("jsonwebtoken");
 const {GenerateAccessToken, GenerateRefreshToken} = require("../../utils/generateJWT");
 const QueryDatabase = require("../../utils/queryDatabase");
-const {compareHashPassword} = require("../../utils/hashBcrypt");
+const {compareHashPassword, hashPassword} = require("../../utils/hashBcrypt");
 const logger = require("../../loggers/loggers.config");
 
 const Login = async (req, res) => {
@@ -85,7 +85,42 @@ const RefreshToken = async (req, res) => {
   }
 };
 
+const SignUp = async (req, res) => {
+  try {
+    const {name, email, password, role} = req.body;
+
+    const escapedEmail = escape(email);
+    const escapedName = escape(name);
+    const escapedPassword = escape(password);
+
+    // Check if the email already exists
+    const checkEmailSql = `SELECT * FROM "users" WHERE email = '${escapedEmail}'`;
+    const existingUser = await QueryDatabase(checkEmailSql);
+
+    if (existingUser.rows.length > 0) {
+      res.status(409); // Conflict status code
+      return {code: 409, message: "Email already exists"};
+    }
+
+    const hashedPassword = await hashPassword(escapedPassword);
+
+    const insertUserSql = `
+      INSERT INTO "users" (name, email, password, role)
+      VALUES ('${escapedName}', '${escapedEmail}', '${hashedPassword}', '${role}')
+    `;
+    await QueryDatabase(insertUserSql);
+
+    return {code: 201, message: "Created account successfully"};
+  } catch (error) {
+    logger.error(error);
+    console.error("Internal Server Error 🔥:: ", error);
+    res.status(500); // Internal Server Error
+    return {code: 500, message: "Internal Server Error"};
+  }
+};
+
 module.exports = {
   Login,
   RefreshToken,
+  SignUp,
 };
