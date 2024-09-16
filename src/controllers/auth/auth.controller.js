@@ -93,10 +93,15 @@ const SignUp = async (req, res) => {
     const escapedName = escape(name);
     const escapedPassword = escape(password);
 
+    // Check email, user, role Not Null
+    if (!name || !email || !password || !role) {
+      res.status(400);
+      return {code: 400, message: "Missing required fields"};
+    }
+
     // Check if the email already exists
     const checkEmailSql = `SELECT * FROM "users" WHERE email = '${escapedEmail}'`;
     const existingUser = await QueryDatabase(checkEmailSql);
-
     if (existingUser.rows.length > 0) {
       res.status(409); // Conflict status code
       return {code: 409, message: "Email already exists"};
