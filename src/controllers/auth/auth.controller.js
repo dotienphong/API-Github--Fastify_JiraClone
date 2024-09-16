@@ -72,8 +72,12 @@ const RefreshToken = async (req, res) => {
 
     const checkVerify = jwt.verify(token, process.env.REFRESH_TOKEN);
 
-    const access_token = GenerateAccessToken({name: checkVerify.name, email: checkVerify.email, role: checkVerify.role});
-    return {access_token: access_token};
+    const accessToken = GenerateAccessToken({name: checkVerify.name, email: checkVerify.email, role: checkVerify.role});
+    const refreshToken = GenerateRefreshToken({name: checkVerify?.name, email: checkVerify?.email, role: checkVerify.role});
+    return {
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    };
   } catch (error) {
     logger.error(error);
     res.status(401);
