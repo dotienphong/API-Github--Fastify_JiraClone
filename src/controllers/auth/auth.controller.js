@@ -94,7 +94,7 @@ const SignUp = async (req, res) => {
     const escapedPassword = escape(password);
 
     // Check email, user, role Not Null
-    if (!name || !email || !password || !role) {
+    if (!name || !email || !password) {
       res.status(400);
       return {code: 400, message: "Missing required fields"};
     }
@@ -111,7 +111,7 @@ const SignUp = async (req, res) => {
 
     const insertUserSql = `
       INSERT INTO "users" (name, email, password, role)
-      VALUES ('${escapedName}', '${escapedEmail}', '${hashedPassword}', '${role}')
+      VALUES ('${escapedName}', '${escapedEmail}', '${hashedPassword}', '${role == 0}')
     `;
     await QueryDatabase(insertUserSql);
 
