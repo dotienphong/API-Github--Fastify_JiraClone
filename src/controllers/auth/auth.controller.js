@@ -87,13 +87,13 @@ const RefreshToken = async (req, res) => {
 
 const SignUp = async (req, res) => {
   try {
-    const {name, email, password, role} = req.body;
+    const {name, email, password} = req.body;
 
     const escapedEmail = escape(email);
     const escapedName = escape(name);
     const escapedPassword = escape(password);
 
-    // Check email, user, role Not Null
+    // Check email, user Not Null
     if (!name || !email || !password) {
       res.status(400);
       return {code: 400, message: "Missing required fields"};
