@@ -111,7 +111,7 @@ const SignUp = async (req, res) => {
 
     const insertUserSql = `
       INSERT INTO "users" (name, email, password, role)
-      VALUES ('${escapedName}', '${escapedEmail}', '${hashedPassword}', '${role == 0}')
+      VALUES ('${escapedName}', '${escapedEmail}', '${hashedPassword}', '${0}')
     `;
     await QueryDatabase(insertUserSql);
 
