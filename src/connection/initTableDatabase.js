@@ -183,11 +183,11 @@ const initTaskTable = async () => {
   }
 };
 
-const initTableDatabase = () => {
+const initTableDatabase = async () => {
   try {
-    initUsersTable();
-    initProjectTable();
-    initTaskTable();
+    await initUsersTable();
+    await initProjectTable();
+    await initTaskTable();
     console.log("Init table database PostgreSQL success");
   } catch (error) {
     console.log("Error init table database :: ", error);
