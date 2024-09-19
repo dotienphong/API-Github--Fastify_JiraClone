@@ -188,7 +188,7 @@ const initTableDatabase = () => {
     initUsersTable();
     initProjectTable();
     initTaskTable();
-    console.log("Init table database success");
+    console.log("Init table database PostgreSQL success");
   } catch (error) {
     console.log("Error init table database :: ", error);
     logger.error(error);
