@@ -9,7 +9,7 @@ const db = new Pool({
   database: process.env.DB_DATABASE,
   port: process.env.DB_PORT,
   max: 1000, // Số lượng kết nối tối đa trong pool
-  idleTimeoutMillis: 2000, // Thời gian chờ để giải phóng kết nối không sử dụng
+  idleTimeoutMillis: 30000, // Thời gian chờ để giải phóng kết nối không sử dụng, thời gian chờ idle
   connectionTimeoutMillis: 5000, // Thời gian chờ để thiết lập kết nối
 });
 
@@ -25,9 +25,9 @@ const db = new Pool({
 //   console.log("Database connection pool has ended.");
 // });
 
-// db.on("error", (err, client) => {
-//   console.error("Unexpected error on idle client", err);
-//   logger.error(err);
-// });
+db.on("error", (err, client) => {
+  console.error("Unexpected error on idle client", err);
+  logger.error(err);
+});
 
 module.exports = db;
