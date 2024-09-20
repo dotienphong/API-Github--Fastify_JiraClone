@@ -13,17 +13,17 @@ const db = new Pool({
   connectionTimeoutMillis: 5000, // Thời gian chờ để thiết lập kết nối
 });
 
-// db.on("connect", (client) => {
-//   console.log("Database connected successfully");
-// });
+db.on("connect", (client) => {
+  console.log("Database connected successfully");
+});
 
-// db.on("remove", (client) => {
-//   console.log("Client removed from pool");
-// });
+db.on("remove", (client) => {
+  console.log("Client removed from pool");
+});
 
-// db.on("end", () => {
-//   console.log("Database connection pool has ended.");
-// });
+db.on("end", () => {
+  console.log("Database connection pool has ended.");
+});
 
 db.on("error", (err, client) => {
   console.error("Unexpected error on idle client", err);
