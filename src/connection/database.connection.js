@@ -8,9 +8,9 @@ const db = new Pool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   port: process.env.DB_PORT,
-  max: 1000, // Số lượng kết nối tối đa trong pool
+  max: 20, // Số lượng kết nối tối đa trong pool
   idleTimeoutMillis: 50000, // Thời gian chờ để giải phóng kết nối không sử dụng, thời gian chờ idle
-  connectionTimeoutMillis: 10000, // Thời gian chờ để thiết lập kết nối
+  connectionTimeoutMillis: 2000, // Thời gian chờ để thiết lập kết nối
 });
 
 db.on("connect", (client) => {
