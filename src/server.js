@@ -14,7 +14,6 @@ const fastifySwaggerUi = require("@fastify/swagger-ui");
 const allRouter = require("./routes/routes");
 const initTableDatabase = require("./connection/initTableDatabase");
 const redisClient = require("./connection/redis.connection");
-const db = require("./connection/database.connection");
 
 // Create Server
 var server;
@@ -33,7 +32,7 @@ const stream = pretty({
 });
 const app = require("fastify")({
   serverFactory,
-  // logger: pino(stream),
+  logger: pino(stream),
 });
 
 // Apply CORS middleware globally
