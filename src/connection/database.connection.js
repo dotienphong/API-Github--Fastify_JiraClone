@@ -10,7 +10,7 @@ const dbConfig = {
   port: process.env.DB_PORT,
 };
 
-const connectToDatabase = async () => {
+const db = async () => {
   const client = new Client(dbConfig);
 
   try {
@@ -34,4 +34,4 @@ const connectToDatabase = async () => {
   }
 };
 
-module.exports = connectToDatabase;
+module.exports = db;
