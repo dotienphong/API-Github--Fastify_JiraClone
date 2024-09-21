@@ -32,7 +32,7 @@
     "http": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
     "nodemon": "^3.1.0",
-    "pg": "^8.11.5",
+    "pg": "^8.13.0",
     "pino-pretty": "^11.0.0",
     "prettier": "^3.2.5",
     "redis": "^4.7.0",
