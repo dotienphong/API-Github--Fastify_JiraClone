@@ -5,7 +5,7 @@ const QueryDatabase = async (sql) => {
   try {
     const client = await db.connect();
     const data = await client.query(sql);
-    client.release(); // Luôn giải phóng client, ngay cả khi có lỗi.
+    // client.release(); // Luôn giải phóng client, ngay cả khi có lỗi.
     return data;
   } catch (err) {
     console.error("Database Query Error 🔥:: ");
