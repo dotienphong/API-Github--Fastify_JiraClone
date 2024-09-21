@@ -1,4 +1,4 @@
-const { Client } = require("pg");
+const {Client} = require("pg");
 const logger = require("../loggers/loggers.config");
 
 // pg configuration Local
@@ -10,28 +10,23 @@ const dbConfig = {
   port: process.env.DB_PORT,
 };
 
-const db = async () => {
-  const client = new Client(dbConfig);
+const db = new Client(dbConfig).connect();
 
-  try {
-    await client.connect();
-    console.log("Database connected successfully");
+db.on("connect", (client) => {
+  console.log("Database connected successfully");
+});
 
-    client.on("end", () => {
-      console.log("Database connection has ended.");
-    });
+db.on("remove", (client) => {
+  console.log("Client removed from pool");
+});
 
-    client.on("error", (err) => {
-      console.error("Unexpected error on client", err);
-      logger.error(err);
-    });
+db.on("end", () => {
+  console.log("Database connection pool has ended.");
+});
 
-    return client; // Return the connected client instance
-  } catch (err) {
-    console.error("Error connecting to the database", err);
-    logger.error(err);
-    throw err;
-  }
-};
+db.on("error", (err, client) => {
+  console.error("Unexpected error on idle client", err);
+  logger.error(err);
+});
 
 module.exports = db;
