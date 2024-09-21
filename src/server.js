@@ -33,7 +33,7 @@ const stream = pretty({
 });
 const app = require("fastify")({
   serverFactory,
-  logger: pino(stream),
+  // logger: pino(stream),
 });
 
 // Apply CORS middleware globally
