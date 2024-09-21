@@ -83,9 +83,6 @@ app.register(allRouter, {prefix: "/api"});
 
 // Run the server!
 app.ready(async () => {
-  // Connect Database
-  await db.connect();
-
   // Init table database
   await initTableDatabase();
 
