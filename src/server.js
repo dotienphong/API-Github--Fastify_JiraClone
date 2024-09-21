@@ -14,6 +14,7 @@ const fastifySwaggerUi = require("@fastify/swagger-ui");
 const allRouter = require("./routes/routes");
 const initTableDatabase = require("./connection/initTableDatabase");
 const redisClient = require("./connection/redis.connection");
+const db = require("./connection/database.connection");
 
 // Create Server
 var server;
@@ -82,6 +83,9 @@ app.register(allRouter, {prefix: "/api"});
 
 // Run the server!
 app.ready(async () => {
+  // Connect Database
+  await db.connect();
+
   // Init table database
   await initTableDatabase();
 
