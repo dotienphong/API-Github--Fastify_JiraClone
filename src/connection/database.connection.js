@@ -1,33 +1,37 @@
-const {Pool} = require("pg");
+const { Client } = require("pg");
 const logger = require("../loggers/loggers.config");
 
 // pg configuration Local
-const db = new Pool({
+const dbConfig = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
   port: process.env.DB_PORT,
-  max: 1000, // Số lượng kết nối tối đa trong pool
-  idleTimeoutMillis: 1500, // Thời gian chờ để giải phóng kết nối không sử dụng, thời gian chờ idle
-  connectionTimeoutMillis: 10000, // Thời gian chờ để thiết lập kết nối
-});
+};
 
-db.on("connect", (client) => {
-  console.log("Database connected successfully");
-});
+const connectToDatabase = async () => {
+  const client = new Client(dbConfig);
 
-db.on("remove", (client) => {
-  console.log("Client removed from pool");
-});
+  try {
+    await client.connect();
+    console.log("Database connected successfully");
 
-db.on("end", () => {
-  console.log("Database connection pool has ended.");
-});
+    client.on("end", () => {
+      console.log("Database connection has ended.");
+    });
 
-db.on("error", (err, client) => {
-  console.error("Unexpected error on idle client", err);
-  logger.error(err);
-});
+    client.on("error", (err) => {
+      console.error("Unexpected error on client", err);
+      logger.error(err);
+    });
 
-module.exports = db;
+    return client; // Return the connected client instance
+  } catch (err) {
+    console.error("Error connecting to the database", err);
+    logger.error(err);
+    throw err;
+  }
+};
+
+module.exports = connectToDatabase;
