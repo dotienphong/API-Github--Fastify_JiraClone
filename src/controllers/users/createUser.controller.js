@@ -8,6 +8,7 @@ const CreateUser = async (req, res, next) => {
     const email = escape(req.body.email);
     const name = escape(req.body.name);
     const password = escape(req.body.password);
+    const role = escape(req.body.role);
 
     // Check user+email ko được trùng với cái đã có trong hệ thống
     const checkEmail = await QueryDatabase(`SELECT * FROM "users" WHERE email='${email}'`);
@@ -25,7 +26,7 @@ const CreateUser = async (req, res, next) => {
 
     const sql = `
       INSERT INTO "users" (name, email, password , role) 
-      VALUES ('${name}', '${email}', '${hashedPassword}','0');
+      VALUES ('${name}', '${email}', '${hashedPassword}','${role}');
     `;
 
     await QueryDatabase(sql);

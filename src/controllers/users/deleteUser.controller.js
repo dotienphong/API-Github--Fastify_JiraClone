@@ -19,9 +19,17 @@ const DeleteUser = async (req, res, next) => {
       return {code: 400, message: "User not found"};
     }
 
+    // Write sql checkrole by id
+    const checkRole = await QueryDatabase(`SELECT * FROM "users" WHERE id='${id}'`);
+    if (checkRole.rows[0].role == 1) {
+      res.status(400);
+      return {code: 400, message: "Can not delete administrator"};
+    }
+
     const sql = `
       DELETE FROM "users" WHERE id='${id}';
     `;
+
     await QueryDatabase(sql);
     return {code: 200, message: "Delete user success"};
   } catch (error) {
