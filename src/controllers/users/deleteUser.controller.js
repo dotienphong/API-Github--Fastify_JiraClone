@@ -4,7 +4,7 @@ const logger = require("../../loggers/loggers.config");
 
 const DeleteUser = async (req, res, next) => {
   try {
-    const id = await escape(req.body.id);
+    const id = escape(req.body.id);
 
     // Check có truyền vào id hay không
     if (!id || id == undefined) {
