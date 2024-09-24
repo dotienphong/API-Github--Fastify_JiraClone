@@ -11,7 +11,7 @@
     "format": "prettier --write \"./**/*.{js,jsx,json}\"",
     "start": "fastify start -l info ./src/server.js --env-file .env",
     "dev": "bun run format && bun run --watch ./src/server.js --env-file .env",
-    "build": "bun build ./src/server.js --target=bun --outfile=./dist/server.js"
+    "build": "babel ./src/server.js --out-file ./dist/server.js"
   },
   "keywords": [],
   "author": "Do Tien Phong",
@@ -23,7 +23,6 @@
     "@fastify/rate-limit": "^9.1.0",
     "@fastify/swagger": "^8.14.0",
     "@fastify/swagger-ui": "^3.0.0",
-    "aws-sdk": "^2.1691.0",
     "axios": "^1.7.7",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
@@ -32,8 +31,6 @@
     "fs": "^0.0.1-security",
     "http": "^0.0.1-security",
     "jsonwebtoken": "^9.0.2",
-    "mock-aws-s3": "^4.0.2",
-    "nock": "^13.5.5",
     "nodemon": "^3.1.7",
     "pg": "^8.13.0",
     "pino-pretty": "^11.2.2",
@@ -41,5 +38,12 @@
     "redis": "^4.7.0",
     "uuid": "^9.0.1",
     "winston": "^3.14.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.25.6",
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.4",
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.4"
   }
 }
