@@ -19,7 +19,7 @@ const router = (router, opts, next) => {
     res.send({hello: "Home Page with Fastify"});
   });
 
-  // Auth
+  // Auth + Signup
   router.post("/login", Login);
   router.get("/refresh-token", RefreshToken);
   router.post("/signup", SignUp);
