@@ -15,8 +15,8 @@ const PutTask = async (req, res, next) => {
 
     // Check có truyền vào id hay ko
     if (!id) {
-      res.status(400);
-      return {code: 400, message: "Missing id"};
+      res.status(404);
+      return {code: 404, message: "Missing id"};
     }
     // Kiểm tra xem project_id đúng định dạng uuid ko
     const isValidUuid = validateUuid(id);

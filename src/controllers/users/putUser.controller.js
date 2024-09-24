@@ -9,15 +9,15 @@ const PutUser = async (req, res, next) => {
 
     // Check có truyền vào name hay ko: != null
     if (!name) {
-      res.status(400);
-      return {code: 400, message: "Missing user name"};
+      res.status(404);
+      return {code: 404, message: "Missing user name"};
     }
 
     // Check Email có trong CSDL hay không
     const checkEmail = await QueryDatabase(`SELECT * FROM "users" WHERE email = '${email}'`);
     if (checkEmail.rowCount === 0) {
-      res.status(400);
-      return {code: 400, message: "Email not found"};
+      res.status(404);
+      return {code: 404, message: "Email not found"};
     }
 
     const sql = ` UPDATE "users" SET name = '${name}' WHERE email = '${email}' `;

@@ -14,12 +14,12 @@ const CreateUser = async (req, res, next) => {
     const checkEmail = await QueryDatabase(`SELECT * FROM "users" WHERE email='${email}'`);
     const checkName = await QueryDatabase(`SELECT * FROM "users" WHERE name='${name}'`);
     if (checkEmail.rowCount > 0) {
-      res.status(400);
-      return {code: 400, message: "Email already exists"};
+      res.status(409);
+      return {code: 409, message: "Email already exists"};
     }
     if (checkName.rowCount > 0) {
-      res.status(400);
-      return {code: 400, message: "Name already exists"};
+      res.status(409);
+      return {code: 409, message: "Name already exists"};
     }
     // Hash password
     const hashedPassword = await hashPassword(password);
@@ -30,7 +30,7 @@ const CreateUser = async (req, res, next) => {
     `;
 
     await QueryDatabase(sql);
-    return {code: 200, message: "Create user success"};
+    return {code: 201, message: "Create user success"};
   } catch (error) {
     logger.error(error);
     res.status(500);

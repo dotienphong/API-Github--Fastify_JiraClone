@@ -8,22 +8,22 @@ const DeleteUser = async (req, res, next) => {
 
     // Check có truyền vào id hay không
     if (!id || id == undefined) {
-      res.status(400);
-      return {code: 400, message: "Missing id"};
+      res.status(404);
+      return {code: 404, message: "Missing id"};
     }
 
     // Check id có trong CSDL hay không
     const checkId = await QueryDatabase(`SELECT * FROM "users" WHERE id='${id}'`);
     if (checkId.rowCount === 0) {
-      res.status(400);
-      return {code: 400, message: "User not found"};
+      res.status(404);
+      return {code: 404, message: "User not found"};
     }
 
     // Write sql checkrole by id
     const checkRole = await QueryDatabase(`SELECT * FROM "users" WHERE id='${id}'`);
     if (checkRole.rows[0].role == 1) {
-      res.status(400);
-      return {code: 400, message: "Can not delete administrator"};
+      res.status(401);
+      return {code: 401, message: "Can not delete administrator"};
     }
 
     const sql = `

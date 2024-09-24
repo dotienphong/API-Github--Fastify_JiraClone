@@ -10,8 +10,8 @@ const ChangeRoleUser = async (req, res, next) => {
     // Check Email có trong CSDL hay không
     const checkEmail = await QueryDatabase(`SELECT * FROM "users" WHERE email = '${email}'`);
     if (checkEmail.rowCount === 0) {
-      res.status(400);
-      return {code: 400, message: "Email not found"};
+      res.status(404);
+      return {code: 404, message: "Email not found"};
     }
 
     const sql = ` UPDATE "users" SET role = '${role}' WHERE email = '${email}' `;

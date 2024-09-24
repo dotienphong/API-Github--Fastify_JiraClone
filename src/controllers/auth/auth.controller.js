@@ -19,8 +19,8 @@ const Login = async (req, res) => {
 
     // Check email
     if (!findAccount) {
-      res.status(401);
-      return {code: 401, message: "Email not found"};
+      res.status(404);
+      return {code: 404, message: "Email not found"};
     }
 
     // Compare Password with database

@@ -9,8 +9,8 @@ const DeleteProject = async (req, res, next) => {
 
     // Check có truyền vào id hay ko
     if (!id) {
-      res.status(400);
-      return {code: 400, message: "Missing id"};
+      res.status(404);
+      return {code: 404, message: "Missing id"};
     }
     // Kiểm tra xem project_id đúng định dạng uuid ko
     const isValidUuid = validateUuid(id);
@@ -22,8 +22,8 @@ const DeleteProject = async (req, res, next) => {
     // Check id có trong CSDL hay khong
     const checkId = await QueryDatabase(`SELECT * FROM project WHERE id=${"'" + id + "'"}`);
     if (checkId.rowCount === 0) {
-      res.status(400);
-      return {code: 400, message: "Project not found"};
+      res.status(404);
+      return {code: 404, message: "Project not found"};
     }
 
     const sql = `
