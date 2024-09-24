@@ -1,5 +1,7 @@
-import { strict as assert } from 'assert';
+const assert = require('assert');
 
-test('Sample test', () => {
-  assert.equal(1 + 1, 2);
+describe('Math Tests', function() {
+  it('should add 1 + 2 correctly', function() {
+    assert.strictEqual(1 + 2, 3);
+  });
 });
