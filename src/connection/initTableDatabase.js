@@ -141,8 +141,8 @@ const initTaskTable = async () => {
         SELECT 
             u.email AS user_mail,
             p.id AS project_id,
-            '2024-04-14 00:00:00' AS time_start, -- Thay đổi giá trị mặc định tùy theo nhu cầu
-            '2024-05-14 00:00:00' AS time_end,   -- Thay đổi giá trị mặc định tùy theo nhu cầu
+            '2024-04-14 00:00:00' AS time_start, 
+            '2024-05-14 00:00:00' AS time_end,   
             'Note mẫu', -- Thay đổi nội dung ghi chú mặc định tùy theo nhu cầu
             FLOOR(RANDOM() * 3) + 1 AS status -- Chọn status ngẫu nhiên từ 1 đến 3
         FROM 
