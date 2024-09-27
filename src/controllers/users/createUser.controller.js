@@ -10,6 +10,11 @@ const CreateUser = async (req, res, next) => {
     const password = escape(req.body.password);
     const role = escape(req.body.role);
 
+    if (!email || !name || !password) {
+      res.status(400);
+      return {code: 400, message: "Missing required fields"};
+    }
+
     // Check user+email ko được trùng với cái đã có trong hệ thống
     const checkEmail = await QueryDatabase(`SELECT * FROM "users" WHERE email='${email}'`);
     const checkName = await QueryDatabase(`SELECT * FROM "users" WHERE name='${name}'`);

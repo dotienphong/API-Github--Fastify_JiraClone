@@ -19,6 +19,11 @@ const CreateTask = async (req, res, next) => {
     const status = escape(req.body.status);
     const note = escape(req.body.note);
 
+    if (!user_mail || !project_id || !time_start || !time_end || !status) {
+      res.status(400);
+      return {code: 400, message: "Missing required fields"};
+    }
+
     // Check email + project_id phải trùng với cái đã có trong CSDL
     const checkEmail = await QueryDatabase(`SELECT * FROM "users" WHERE email='${req.body.user_mail}'`);
     const checkProjectId = await QueryDatabase(`SELECT * FROM project WHERE id=${"'" + req.body.project_id + "'"}`);
