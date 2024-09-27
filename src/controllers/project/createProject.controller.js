@@ -18,6 +18,11 @@ const CreateProject = async (req, res, next) => {
     const note = escape(req.body.note);
     const priority = escape(req.body.priority);
 
+    if (!name || !payment || !time_start || !time_end || !note || !priority) {
+      res.status(400);
+      return {code: 400, message: "Missing field"}
+    }
+
     const sql = `
       INSERT INTO project ("name", "payment", "time_start" , "time_end", "note", "priority") 
       VALUES ('${name}', '${payment}', '${time_start}','${time_end}' ,'${note}','${priority}');
