@@ -19,7 +19,7 @@ const CreateProject = async (req, res, next) => {
     const priority = escape(req.body.priority);
 
     const sql = `
-      INSERT INTO project (name, payment, time_start , time_end, note, priority) 
+      INSERT INTO project ("name", "payment", "time_start" , "time_end", "note", "priority") 
       VALUES ('${name}', '${payment}', '${time_start}','${time_end}' ,'${note}','${priority}');
     `;
 

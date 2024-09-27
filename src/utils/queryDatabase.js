@@ -9,7 +9,6 @@ const QueryDatabase = async (sql) => {
   } catch (err) {
     console.error("Database Query Error 🔥:: ");
     logger.error(err);
-    client.release(); // Luôn giải phóng client, ngay cả khi có lỗi.
     throw err; // Ném lại lỗi để xử lý ở nơi gọi hàm
   } finally {
     client.release(); // Luôn giải phóng client, ngay cả khi có lỗi.
