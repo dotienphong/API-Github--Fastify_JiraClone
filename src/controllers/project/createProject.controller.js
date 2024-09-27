@@ -20,7 +20,7 @@ const CreateProject = async (req, res, next) => {
 
     if (!name || !payment || !time_start || !time_end || !note || !priority) {
       res.status(400);
-      return {code: 400, message: "Missing field"}
+      return {code: 400, message: "Missing field"};
     }
 
     const sql = `
