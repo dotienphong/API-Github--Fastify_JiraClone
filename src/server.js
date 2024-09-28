@@ -1,5 +1,6 @@
 "use strict";
 const path = require("path");
+const multer = require("fastify-multer");
 const dotenv = require("dotenv");
 dotenv.config({
   path: path.join(__dirname, "../.env"),
@@ -42,6 +43,9 @@ app.register(cors, {
   //   allowedHeaders: ["Content-Type", "Authorization"],
   //   credentials: true,
 });
+
+// Đăng ký plugin fastify-multer
+app.register(multer.contentParser);
 
 // Rate-Limit
 app.register(rateLimit, {
