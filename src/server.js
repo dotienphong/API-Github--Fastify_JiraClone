@@ -15,6 +15,7 @@ const fastifySwaggerUi = require("@fastify/swagger-ui");
 const allRouter = require("./routes/routes");
 const initTableDatabase = require("./connection/initTableDatabase");
 const redisClient = require("./connection/redis.connection");
+const { default: fastifyStatic } = require("fastify-static");
 
 // Create Server
 var server;
@@ -83,6 +84,11 @@ app.get("/", async (req, res) => {
   res.send({hello: "Home Page with Fastify"});
 });
 app.register(allRouter, {prefix: "/api"});
+// Sử dụng fastify-static để phục vụ file tĩnh
+app.register(fastifyStatic, {
+  root: path.join(__dirname, "uploads/user"), // Đường dẫn tới thư mục chứa ảnh
+  prefix: "/api/uploads/user/", // Đường dẫn URL
+});
 
 // Run the server!
 app.ready(async () => {

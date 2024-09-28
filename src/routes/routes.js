@@ -12,11 +12,11 @@ const CreateUser = require("../controllers/users/createUser.controller");
 const DeleteUser = require("../controllers/users/deleteUser.controller");
 const {GetUser, GetUserById} = require("../controllers/users/getUser.controller");
 const PutUser = require("../controllers/users/putUser.controller");
+const Setting = require("../controllers/users/settingUser.controller");
 const VerifyToken = require("../middlewares/verifyToken");
 
 const multer = require("fastify-multer");
 const fs = require("fs");
-const Setting = require("../controllers/users/settingUser.controller");
 
 // Cấu hình multer để lưu ảnh upload
 const storage = multer.diskStorage({
