@@ -30,6 +30,7 @@
     "fastify": "^4.26.2",
     "fastify-multer": "^2.0.3",
     "fastify-static": "^4.6.1",
+    "firebase": "^10.13.2",
     "firebase-admin": "^12.5.0",
     "fs": "^0.0.1-security",
     "http": "^0.0.1-security",
