@@ -15,7 +15,7 @@ const fastifySwaggerUi = require("@fastify/swagger-ui");
 const allRouter = require("./routes/routes");
 const initTableDatabase = require("./connection/initTableDatabase");
 const redisClient = require("./connection/redis.connection");
-const { default: fastifyStatic } = require("fastify-static");
+const {default: fastifyStatic} = require("fastify-static");
 
 // Create Server
 var server;

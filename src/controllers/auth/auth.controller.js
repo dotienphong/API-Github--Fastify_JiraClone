@@ -4,6 +4,7 @@ const {GenerateAccessToken, GenerateRefreshToken} = require("../../utils/generat
 const QueryDatabase = require("../../utils/queryDatabase");
 const {compareHashPassword, hashPassword} = require("../../utils/hashBcrypt");
 const logger = require("../../loggers/loggers.config");
+const admin = require("../../connection/firebase/firebase.connection");
 
 const Login = async (req, res) => {
   try {
@@ -124,8 +125,41 @@ const SignUp = async (req, res) => {
   }
 };
 
+const LoginFirebase = async (req, res) => {
+  const {token} = req.body; // Nhận firebase_token từ client
+
+  try {
+    const decodedToken = await admin.auth().verifyIdToken(token);
+
+    const checkEmail = `SELECT * FROM "users" WHERE email = '${decodedToken.email}'`;
+    const emailExist = await QueryDatabase(checkEmail);
+    console.log(emailExist.rows[0]);
+
+    const findAccount = emailExist.rows.find((item) => item.email === decodedToken.email);
+    if (!findAccount) {
+      res.status(404);
+      return {code: 404, message: "Email not found"};
+    }
+
+    const {name, email, role} = emailExist.rows[0];
+    const access_token = GenerateAccessToken({name: name, email: email, role: role});
+    const refresh_Token = GenerateRefreshToken({name: name, email: email, role: role});
+
+    res.status(200).send({
+      email: decodedToken.email,
+      access_token: access_token,
+      refresh_Token: refresh_Token,
+    });
+  } catch (error) {
+    console.error("Error verifying token:", error);
+    logger.error(error);
+    res.status(401).send({message: "Invalid token Firebase"});
+  }
+};
+
 module.exports = {
   Login,
   RefreshToken,
   SignUp,
+  LoginFirebase,
 };
