@@ -42,9 +42,9 @@ const router = (router, opts, next) => {
 
   // Auth + Signup
   router.post("/login", Login);
+  router.post("/login/google", LoginFirebase);
   router.get("/refresh-token", RefreshToken);
   router.post("/signup", SignUp);
-  router.post("/login/firebase", LoginFirebase);
 
   // User
   router.get("/user", {onRequest: [VerifyToken]}, GetUser);
