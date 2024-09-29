@@ -1,4 +1,4 @@
-const {Login, RefreshToken, SignUp} = require("../controllers/auth/auth.controller");
+const {Login, RefreshToken, SignUp, LoginFirebase} = require("../controllers/auth/auth.controller");
 const CreateProject = require("../controllers/project/createProject.controller");
 const DeleteProject = require("../controllers/project/deleteProject.controller");
 const {GetProject, GetProjectById, GetProjectByUser} = require("../controllers/project/getProject.controller");
@@ -44,6 +44,7 @@ const router = (router, opts, next) => {
   router.post("/login", Login);
   router.get("/refresh-token", RefreshToken);
   router.post("/signup", SignUp);
+  router.post("/login/firebase", LoginFirebase);
 
   // User
   router.get("/user", {onRequest: [VerifyToken]}, GetUser);
