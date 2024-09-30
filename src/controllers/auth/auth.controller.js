@@ -151,9 +151,10 @@ const LoginFirebase = async (req, res) => {
       refresh_Token: refresh_Token,
     });
   } catch (error) {
-    console.error("Error verifying token login Google:", error);
+    console.error("Unauthorized with Google account", error);
     logger.error(error);
-    res.status(500).send({message: "Invalid token Google"});
+    res.status(401);
+    return {code: 401, message: "Unauthorized with Google account"};
   }
 };
 
