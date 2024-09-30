@@ -151,9 +151,9 @@ const LoginFirebase = async (req, res) => {
       refresh_Token: refresh_Token,
     });
   } catch (error) {
-    console.error("Error verifying token:", error);
+    console.error("Error verifying token login Google:", error);
     logger.error(error);
-    res.status(401).send({message: "Invalid token Firebase"});
+    res.status(500).send({message: "Invalid token Google"});
   }
 };
 
