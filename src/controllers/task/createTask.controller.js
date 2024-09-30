@@ -24,6 +24,16 @@ const CreateTask = async (req, res, next) => {
       return {code: 400, message: "Missing required fields"};
     }
 
+    const taskExist = await QueryDatabase(
+      `SELECT * FROM task WHERE user_mail = '${user_mail}' AND project_id = '${project_id}'  AND note = '${note}'`,
+    );
+    console.log("taskExist", taskExist);
+
+    if (taskExist.rowCount > 0) {
+      res.status(400);
+      return {code: 400, message: "Task already exists"};
+    }
+
     // Check email + project_id phải trùng với cái đã có trong CSDL
     const checkEmail = await QueryDatabase(`SELECT * FROM "users" WHERE email='${req.body.user_mail}'`);
     const checkProjectId = await QueryDatabase(`SELECT * FROM project WHERE id=${"'" + req.body.project_id + "'"}`);
