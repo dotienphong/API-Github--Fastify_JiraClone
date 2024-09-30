@@ -24,9 +24,9 @@ const initUsersTable = async () => {
         ('test@gmail.com','$2b$10$/A1xjClqHMOn9F.lHBm1bekWgK.TTDeJ25.sPfNrzRb1WsPj3bSh.', 'test', '0');  
     `;
     const checkUsers = await QueryDatabase(checkIsHaveUsers);
-    const checkRowUsers = await QueryDatabase(checkIsHaveRowsUsers);
 
     if (checkUsers.rows[0].exists === true) {
+      const checkRowUsers = await QueryDatabase(checkIsHaveRowsUsers);
       if (checkRowUsers.rows[0].count == 0) {
         await QueryDatabase(addUser);
       }
@@ -43,6 +43,7 @@ const initUsersTable = async () => {
         );
       `;
       await QueryDatabase(sql);
+      const checkRowUsers = await QueryDatabase(checkIsHaveRowsUsers);
       if (checkRowUsers.rows[0].count == 0) {
         await QueryDatabase(addUser);
       }
@@ -77,9 +78,9 @@ const initProjectTable = async () => {
         ('Dự án Nodejs', 400000.0,'2023-09-29T08:20:23.962','2024-09-29T08:20:23.962', '',1); 
     `;
     const checkProject = await QueryDatabase(checkIsHaveProject);
-    const checkRowProject = await QueryDatabase(checkIsHaveRowsProject);
 
     if (checkProject.rows[0].exists === true) {
+      const checkRowProject = await QueryDatabase(checkIsHaveRowsProject);
       if (checkRowProject.rows[0].count == 0) {
         await QueryDatabase(addProject);
       }
@@ -98,6 +99,7 @@ const initProjectTable = async () => {
         );
       `;
       await QueryDatabase(sql);
+      const checkRowProject = await QueryDatabase(checkIsHaveRowsProject);
       if (checkRowProject.rows[0].count == 0) {
         await QueryDatabase(addProject);
       }
@@ -153,9 +155,9 @@ const initTaskTable = async () => {
       `;
 
     const checkTask = await QueryDatabase(checkIsHaveTask);
-    const checkRowTask = await QueryDatabase(checkIsHaveRowsTask);
 
     if (checkTask.rows[0].exists === true) {
+      const checkRowTask = await QueryDatabase(checkIsHaveRowsTask);
       if (checkRowTask.rows[0].count == 0) {
         await QueryDatabase(addTask);
       }
@@ -174,6 +176,7 @@ const initTaskTable = async () => {
         );
       `;
       await QueryDatabase(sql);
+      const checkRowTask = await QueryDatabase(checkIsHaveRowsTask);
       if (checkRowTask.rows[0].count == 0) {
         await QueryDatabase(addTask);
       }
