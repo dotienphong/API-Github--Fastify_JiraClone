@@ -146,7 +146,6 @@ const LoginFirebase = async (req, res) => {
     const refresh_Token = GenerateRefreshToken({name: name, email: email, role: role});
 
     res.status(200).send({
-      email: decodedToken.email,
       access_token: access_token,
       refresh_Token: refresh_Token,
     });
