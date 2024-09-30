@@ -133,7 +133,7 @@ const LoginFirebase = async (req, res) => {
 
     const checkEmail = `SELECT * FROM "users" WHERE email = '${decodedToken.email}'`;
     const emailExist = await QueryDatabase(checkEmail);
-    console.log("Login Google Firebase::: ",emailExist.rows[0]);
+    console.log("Login Google Firebase::: ", emailExist.rows[0]);
 
     const findAccount = emailExist.rows.find((item) => item.email === decodedToken.email);
     if (!findAccount) {
