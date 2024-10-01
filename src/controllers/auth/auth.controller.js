@@ -133,22 +133,38 @@ const LoginFirebase = async (req, res) => {
 
     const checkEmail = `SELECT * FROM "users" WHERE email = '${decodedToken.email}'`;
     const emailExist = await QueryDatabase(checkEmail);
-    console.log("Login Google Firebase::: ", emailExist.rows[0]);
 
     const findAccount = emailExist.rows.find((item) => item.email === decodedToken.email);
     if (!findAccount) {
-      res.status(404);
-      return {code: 404, message: "Email not found"};
+      try {
+        const sqlCreateNewUser = `
+          INSERT INTO "users" (name, email, password , role) 
+          VALUES ('${decodedToken.name}', '${decodedToken.email}', '','${0}');
+        `;
+        await QueryDatabase(sqlCreateNewUser);
+      } catch (error) {
+        logger.error(error);
+        res.status(500).send({code: 500, message: "Create user by Google-Login fail"});
+      }
+      const checkEmailExistAfterCreateByGoogle = await QueryDatabase(checkEmail);
+      const {name, email, role} = checkEmailExistAfterCreateByGoogle.rows[0];
+
+      const access_token = GenerateAccessToken({name: name, email: email, role: role});
+      const refresh_Token = GenerateRefreshToken({name: name, email: email, role: role});
+      res.status(200).send({
+        access_token: access_token,
+        refresh_Token: refresh_Token,
+      });
+    } else {
+      const {name, email, role} = emailExist.rows[0];
+      const access_token = GenerateAccessToken({name: name, email: email, role: role});
+      const refresh_Token = GenerateRefreshToken({name: name, email: email, role: role});
+
+      res.status(200).send({
+        access_token: access_token,
+        refresh_Token: refresh_Token,
+      });
     }
-
-    const {name, email, role} = emailExist.rows[0];
-    const access_token = GenerateAccessToken({name: name, email: email, role: role});
-    const refresh_Token = GenerateRefreshToken({name: name, email: email, role: role});
-
-    res.status(200).send({
-      access_token: access_token,
-      refresh_Token: refresh_Token,
-    });
   } catch (error) {
     console.error("Unauthorized with Google account", error);
     logger.error(error);
