@@ -71,7 +71,7 @@ const router = (router, opts, next) => {
 
   // GetTaskBy.......
   router.get("/gettaskbyprojectid/:id", {onRequest: [VerifyToken]}, GetTaskByProjectId); //GetTaskByProjectId
-  router.get("/gettaskbyuser/:name", {onRequest: [VerifyToken]}, GetTaskByUser); //GetTaskByUser
+  router.get("/gettaskbyuser/:id", {onRequest: [VerifyToken]}, GetTaskByUser); //GetTaskByUser
 
   // GetProjectBy.......
   router.get("/getprojectbyuser/:email", {onRequest: [VerifyToken]}, GetProjectByUser); //GetProjectByUser

@@ -27,7 +27,6 @@ const CreateTask = async (req, res, next) => {
     const taskExist = await QueryDatabase(
       `SELECT * FROM task WHERE user_mail = '${user_mail}' AND project_id = '${project_id}'  AND note = '${note}'`,
     );
-    console.log("taskExist", taskExist);
 
     if (taskExist.rowCount > 0) {
       res.status(400);
