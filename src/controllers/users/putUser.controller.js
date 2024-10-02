@@ -8,7 +8,7 @@ const PutUser = async (req, res, next) => {
     if (!req.body) {
       res.status(400).send({status: 400, message: "Missing req.body data"});
     }
-    
+
     const name = escape(req.body.name);
     const email = escape(req.body.email);
     const password = escape(req.body.password);

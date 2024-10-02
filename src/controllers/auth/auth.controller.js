@@ -91,7 +91,7 @@ const SignUp = async (req, res) => {
     if (!req.body) {
       res.status(400).send({status: 400, message: "Missing req.body data"});
     }
-    
+
     const {name, email, password} = req.body;
 
     const escapedEmail = escape(email);
