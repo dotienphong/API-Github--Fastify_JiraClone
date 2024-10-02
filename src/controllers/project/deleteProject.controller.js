@@ -4,9 +4,8 @@ const QueryDatabase = require("../../utils/queryDatabase");
 const {v4: uuidv4, validate: validateUuid} = require("uuid");
 
 const DeleteProject = async (req, res, next) => {
+  const id = escape(req.body.id);
   try {
-    const id = escape(req.body.id);
-
     // Check có truyền vào id hay ko
     if (!id) {
       res.status(404);

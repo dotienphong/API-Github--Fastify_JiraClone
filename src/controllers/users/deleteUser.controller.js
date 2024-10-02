@@ -3,9 +3,8 @@ const QueryDatabase = require("../../utils/queryDatabase");
 const logger = require("../../loggers/loggers.config");
 
 const DeleteUser = async (req, res, next) => {
+  const id = escape(req.body.id);
   try {
-    const id = escape(req.body.id);
-
     // Check có truyền vào id hay không
     if (!id || id == undefined || id == null || id == "") {
       res.status(404);
