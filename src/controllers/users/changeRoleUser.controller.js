@@ -4,6 +4,10 @@ const logger = require("../../loggers/loggers.config");
 
 const ChangeRoleUser = async (req, res, next) => {
   try {
+    if (!req.body) {
+      res.status(400).send({status: 400, message: "Missing req.body data"});
+    }
+
     const email = escape(req.body.email);
     const role = escape(req.body.role);
 

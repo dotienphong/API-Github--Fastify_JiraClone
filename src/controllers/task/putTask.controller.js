@@ -5,6 +5,10 @@ const {v4: uuidv4, validate: validateUuid} = require("uuid");
 
 const PutTask = async (req, res, next) => {
   try {
+    if (!req.body) {
+      res.status(400).send({status: 400, message: "Missing req.body data"});
+    }
+
     const user_mail = escape(req.body.user_mail);
     const project_id = escape(req.body.project_id);
     const time_start = escape(req.body.time_start);
