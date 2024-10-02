@@ -4,6 +4,10 @@ const QueryDatabase = require("../../utils/queryDatabase");
 
 const CreateProject = async (req, res, next) => {
   try {
+    if (!req.body) {
+      res.status(400).send({status: 400, message: "Missing req.body data"});
+    }
+
     // Check name của project tạo mới ko được trùng với cái đã có trong hệ thống
     const checkName = await QueryDatabase(`SELECT * FROM project WHERE name='${req.body.name}'`);
     if (checkName.rowCount > 0) {

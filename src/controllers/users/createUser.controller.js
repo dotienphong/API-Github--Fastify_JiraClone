@@ -5,6 +5,10 @@ const logger = require("../../loggers/loggers.config");
 
 const CreateUser = async (req, res, next) => {
   try {
+    if (!req.body) {
+      res.status(400).send({status: 400, message: "Missing req.body data"});
+    }
+
     const email = escape(req.body.email);
     const name = escape(req.body.name);
     const password = escape(req.body.password);

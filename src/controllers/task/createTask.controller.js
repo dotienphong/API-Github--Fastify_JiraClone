@@ -5,6 +5,10 @@ const {v4: uuidv4, validate: validateUuid} = require("uuid");
 
 const CreateTask = async (req, res, next) => {
   try {
+    if (!req.body) {
+      res.status(400).send({status: 400, message: "Missing req.body data"});
+    }
+
     // Kiểm tra xem project_id đúng định dạng uuid ko
     const isValidUuid = validateUuid(req.body.project_id);
     if (isValidUuid == false) {
