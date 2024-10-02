@@ -25,6 +25,10 @@ const PutUser = async (req, res, next) => {
       res.status(404);
       return {code: 404, message: "Email not found"};
     }
+    if (checkEmail.rows[0].email == "admin@gmail.com") {
+      res.status(401);
+      return {code: 401, message: "Can not change information administrator"};
+    }
 
     // Hash password
     const hashedPassword = await hashPassword(password);
