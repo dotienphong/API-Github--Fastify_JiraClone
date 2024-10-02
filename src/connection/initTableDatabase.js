@@ -21,7 +21,7 @@ const initUsersTable = async () => {
       VALUES
         ('admin@gmail.com','$2b$10$ZHJTMlQTwGfwUMCqBPDgx.F.PrbksZ6wH6FOHR4m2MY.7fKlN7uyC', 'admin', '1'),
         ('admin1@gmail.com','$2b$10$ZHJTMlQTwGfwUMCqBPDgx.F.PrbksZ6wH6FOHR4m2MY.7fKlN7uyC', 'admin1', '1'),
-        ('test@gmail.com','$2b$10$/A1xjClqHMOn9F.lHBm1bekWgK.TTDeJ25.sPfNrzRb1WsPj3bSh.', 'test', '0');  
+        ('test@gmail.com','$2b$10$ZHJTMlQTwGfwUMCqBPDgx.F.PrbksZ6wH6FOHR4m2MY.7fKlN7uyC', 'test', '0');  
     `;
     const checkUsers = await QueryDatabase(checkIsHaveUsers);
 
