@@ -130,6 +130,9 @@ const SignUp = async (req, res) => {
 };
 
 const LoginFirebase = async (req, res) => {
+  if (!req.body) {
+    res.status(400).send({status: 400, message: "Missing req.body data"});
+  }
   const {token} = req.body; // Nhận firebase_token từ client
 
   try {
