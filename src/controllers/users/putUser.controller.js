@@ -1,11 +1,13 @@
 const escape = require("escape-html");
 const QueryDatabase = require("../../utils/queryDatabase");
 const logger = require("../../loggers/loggers.config");
+const {hashPassword} = require("../../utils/hashBcrypt");
 
 const PutUser = async (req, res, next) => {
   try {
     const name = escape(req.body.name);
     const email = escape(req.body.email);
+    const password = escape(req.body.password);
 
     // Check có truyền vào name hay ko: != null
     if (!name) {
@@ -20,7 +22,13 @@ const PutUser = async (req, res, next) => {
       return {code: 404, message: "Email not found"};
     }
 
-    const sql = ` UPDATE "users" SET name = '${name}' WHERE email = '${email}' `;
+    // Hash password
+    const hashedPassword = await hashPassword(password);
+    const sql = `
+      UPDATE "users" 
+      SET name = '${name}', 
+      password = '${hashedPassword}' 
+      WHERE email = '${email}' `;
     await QueryDatabase(sql);
     return {code: 200, message: "Update user success"};
   } catch (error) {
