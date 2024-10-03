@@ -37,7 +37,13 @@ const router = (router, opts, next) => {
   router.put("/user/changerole", {onRequest: [VerifyToken]}, ChangeRoleUser);
 
   // Upload Avarta
-  router.post("/upload/avarta", {preHandler: upload.single("image")}, UploadAvarta);
+  router.route({
+    method: "POST",
+    url: "/upload/avarta",
+    onRequest: [VerifyToken], // Middleware để kiểm tra token trước khi xử lý request
+    preHandler: upload.single("image"), // Middleware của Multer để xử lý file upload
+    handler: UploadAvarta, // Hàm xử lý upload avarta
+  });
   router.get("/avarta/:filename", GetAvarta);
 
   // Project
