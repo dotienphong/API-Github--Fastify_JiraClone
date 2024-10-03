@@ -1,13 +1,13 @@
 const path = require("path");
 
-const Setting = async (req, reply) => {
+const UploadAvarta = async (req, reply) => {
   try {
     const file = req.file;
     if (!file) {
       return reply.status(400).send({error: "No file uploaded"});
     }
 
-    const filePath = path.join("/uploads/user", file.filename);
+    const filePath = path.join("/uploads", file.filename);
     const formattedPath = filePath.replace(/\\/g, "/");
     console.log(formattedPath);
 
@@ -20,4 +20,4 @@ const Setting = async (req, reply) => {
   }
 };
 
-module.exports = Setting;
+module.exports = UploadAvarta;

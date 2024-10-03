@@ -84,11 +84,12 @@ app.get("/", async (req, res) => {
   res.send({hello: "Home Page with Fastify"});
 });
 app.register(allRouter, {prefix: "/api"});
+
 // Sử dụng fastify-static để phục vụ file tĩnh
-app.register(fastifyStatic, {
-  root: path.join(__dirname, "uploads/user"), // Đường dẫn tới thư mục chứa ảnh
-  prefix: "/api/uploads/user/", // Đường dẫn URL
-});
+// app.register(fastifyStatic, {
+//   root: path.join(__dirname, "uploads"), // Đường dẫn tới thư mục chứa ảnh
+//   prefix: "/avarta", // Đường dẫn URL
+// });
 
 // Run the server!
 app.ready(async () => {

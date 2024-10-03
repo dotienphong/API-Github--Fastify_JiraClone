@@ -1,3 +1,4 @@
+const upload = require("../configs/uploadImage");
 const {Login, RefreshToken, SignUp, LoginFirebase} = require("../controllers/auth/auth.controller");
 const CreateProject = require("../controllers/project/createProject.controller");
 const DeleteProject = require("../controllers/project/deleteProject.controller");
@@ -12,28 +13,8 @@ const CreateUser = require("../controllers/users/createUser.controller");
 const DeleteUser = require("../controllers/users/deleteUser.controller");
 const {GetUser, GetUserById} = require("../controllers/users/getUser.controller");
 const PutUser = require("../controllers/users/putUser.controller");
-const Setting = require("../controllers/users/settingUser.controller");
+const UploadAvarta = require("../controllers/users/uploadAvarta.controller");
 const VerifyToken = require("../middlewares/verifyToken");
-
-const multer = require("fastify-multer");
-const fs = require("fs");
-
-// Cấu hình multer để lưu ảnh upload
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // Tạo thư mục nếu chưa tồn tại
-    const uploadPath = "./uploads/user";
-    if (!fs.existsSync(uploadPath)) {
-      fs.mkdirSync(uploadPath, {recursive: true});
-    }
-    cb(null, uploadPath); // Lưu vào thư mục upload/user
-  },
-  filename: (req, file, cb) => {
-    // Đặt tên file bao gồm thời gian upload để tránh trùng lặp
-    cb(null, `${Date.now()}-${file.originalname}`);
-  },
-});
-const upload = multer({storage: storage});
 
 const router = (router, opts, next) => {
   router.get("/", async (req, res) => {
@@ -53,7 +34,7 @@ const router = (router, opts, next) => {
   router.delete("/user", {onRequest: [VerifyToken]}, DeleteUser);
   router.put("/user", {onRequest: [VerifyToken]}, PutUser);
   router.put("/user/changerole", {onRequest: [VerifyToken]}, ChangeRoleUser);
-  router.post("/user/setting", {preHandler: upload.single("image")}, Setting);
+  router.post("/upload/avarta", {preHandler: upload.single("image")}, UploadAvarta); //upload max 5 images
 
   // Project
   router.get("/project", {onRequest: [VerifyToken]}, GetProject);
