@@ -7,13 +7,13 @@ const UploadAvarta = async (req, reply) => {
       return reply.status(400).send({error: "No file uploaded"});
     }
 
-    const filePath = path.join("/uploads", file.filename);
+    const filePath = path.join("/avarta", file.filename);
     const formattedPath = filePath.replace(/\\/g, "/");
-    console.log(formattedPath);
 
     reply.send({
       message: "File uploaded successfully",
-      filePath: `http://localhost:4001/api${formattedPath}`, // Đường dẫn URL của ảnh
+      fileAvartaPath: `http://localhost:4001/api${formattedPath}`, // Đường dẫn URL của ảnh
+      info: req.file,
     });
   } catch (error) {
     reply.status(500).send({error: error.message});

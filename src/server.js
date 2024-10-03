@@ -15,7 +15,6 @@ const fastifySwaggerUi = require("@fastify/swagger-ui");
 const allRouter = require("./routes/routes");
 const initTableDatabase = require("./connection/initTableDatabase");
 const redisClient = require("./connection/redis.connection");
-const {default: fastifyStatic} = require("fastify-static");
 
 // Create Server
 var server;
@@ -81,15 +80,9 @@ app.register(fastifySwaggerUi, swaggerUiOptions);
 
 // ROUTER
 app.get("/", async (req, res) => {
-  res.send({hello: "Home Page with Fastify"});
+  res.send({hello: "Home Page with Fastify JiraClone"});
 });
 app.register(allRouter, {prefix: "/api"});
-
-// Sử dụng fastify-static để phục vụ file tĩnh
-// app.register(fastifyStatic, {
-//   root: path.join(__dirname, "uploads"), // Đường dẫn tới thư mục chứa ảnh
-//   prefix: "/avarta", // Đường dẫn URL
-// });
 
 // Run the server!
 app.ready(async () => {

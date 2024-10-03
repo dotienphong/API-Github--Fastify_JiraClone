@@ -1,4 +1,4 @@
-const upload = require("../configs/uploadImage");
+const {upload} = require("../configs/uploadImage");
 const {Login, RefreshToken, SignUp, LoginFirebase} = require("../controllers/auth/auth.controller");
 const CreateProject = require("../controllers/project/createProject.controller");
 const DeleteProject = require("../controllers/project/deleteProject.controller");
@@ -11,6 +11,7 @@ const PutTask = require("../controllers/task/putTask.controller");
 const ChangeRoleUser = require("../controllers/users/changeRoleUser.controller");
 const CreateUser = require("../controllers/users/createUser.controller");
 const DeleteUser = require("../controllers/users/deleteUser.controller");
+const GetAvarta = require("../controllers/users/getAvarta.controller");
 const {GetUser, GetUserById} = require("../controllers/users/getUser.controller");
 const PutUser = require("../controllers/users/putUser.controller");
 const UploadAvarta = require("../controllers/users/uploadAvarta.controller");
@@ -18,7 +19,7 @@ const VerifyToken = require("../middlewares/verifyToken");
 
 const router = (router, opts, next) => {
   router.get("/", async (req, res) => {
-    res.send({hello: "Home Page with Fastify"});
+    res.send({hello: "Home Page with Fastify JiraClone"});
   });
 
   // Auth + Signup
@@ -34,7 +35,10 @@ const router = (router, opts, next) => {
   router.delete("/user", {onRequest: [VerifyToken]}, DeleteUser);
   router.put("/user", {onRequest: [VerifyToken]}, PutUser);
   router.put("/user/changerole", {onRequest: [VerifyToken]}, ChangeRoleUser);
-  router.post("/upload/avarta", {preHandler: upload.single("image")}, UploadAvarta); //upload max 5 images
+
+  // Upload Avarta
+  router.post("/upload/avarta", {preHandler: upload.single("image")}, UploadAvarta);
+  router.get("/avarta/:filename", GetAvarta);
 
   // Project
   router.get("/project", {onRequest: [VerifyToken]}, GetProject);
