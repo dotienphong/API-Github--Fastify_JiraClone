@@ -13,7 +13,6 @@ const PutUser = async (req, res, next) => {
     const email = escape(req.body.email);
     const password = escape(req.body.password);
 
-    // Check có truyền vào name hay ko: != null
     if (!name) {
       res.status(404);
       return {code: 404, message: "Missing user name"};

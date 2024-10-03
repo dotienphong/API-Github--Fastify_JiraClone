@@ -7,7 +7,6 @@ const UploadAvarta = async (req, res) => {
   const accessToken = authorization.slice(7);
   const decodedToken = jwt.decode(accessToken);
   const {email} = decodedToken;
-  console.log("email", email);
 
   try {
     const file = req.file;
