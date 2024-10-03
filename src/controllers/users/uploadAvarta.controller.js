@@ -18,19 +18,19 @@ const UploadAvarta = async (req, res) => {
     const formattedPath = filePath.replace(/\\/g, "/");
     const fileAvartaPath = `${process.env.BASE_URL}:${process.env.PORT}/api${formattedPath}`;
 
+    // Luu vao database
+    const sqlAddAvartaForUser = `
+      UPDATE "users"
+      SET avarta = '${fileAvartaPath}'
+      WHERE email = '${email}';
+      `;
+    await QueryDatabase(sqlAddAvartaForUser);
+
     res.send({
       message: "File uploaded successfully",
       fileAvartaPath: fileAvartaPath, // Đường dẫn URL của ảnh
       info: req.file,
     });
-
-    // Luu vao database
-    const sqlAddAvartaForUser = `
-        UPDATE "users"
-        SET avarta = '${fileAvartaPath}'
-        WHERE email = '${email}';
-      `;
-    await QueryDatabase(sqlAddAvartaForUser);
   } catch (error) {
     res.status(500).send({error: error.message});
   }
