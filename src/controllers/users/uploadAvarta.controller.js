@@ -11,7 +11,7 @@ const UploadAvarta = async (req, res) => {
   try {
     const file = req.file;
     if (!file) {
-      return res.status(400).send({error: "No file uploaded"});
+      return res.status(400).send({status: 400, message: "No file uploaded"});
     }
 
     const filePath = path.join("/avarta", file.filename);
