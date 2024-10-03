@@ -12,7 +12,7 @@ const UploadAvarta = async (req, reply) => {
 
     reply.send({
       message: "File uploaded successfully",
-      fileAvartaPath: `${process.env.BASE_URL}/api${formattedPath}`, // Đường dẫn URL của ảnh
+      fileAvartaPath: `${process.env.BASE_URL}:${process.env.PORT}/api${formattedPath}`, // Đường dẫn URL của ảnh
       info: req.file,
     });
   } catch (error) {
