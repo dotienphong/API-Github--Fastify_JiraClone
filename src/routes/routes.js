@@ -36,7 +36,7 @@ const router = (router, opts, next) => {
   router.put("/user", {onRequest: [VerifyToken]}, PutUser);
   router.put("/user/changerole", {onRequest: [VerifyToken]}, ChangeRoleUser);
 
-  // Upload Avarta
+  // Upload Avarta image
   router.route({
     method: "POST",
     url: "/upload/avarta",
