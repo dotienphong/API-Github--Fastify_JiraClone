@@ -1,5 +1,6 @@
 const path = require("path");
 const jwt = require("jsonwebtoken");
+const QueryDatabase = require("../../utils/queryDatabase");
 
 const UploadAvarta = async (req, res) => {
   const {authorization} = req.headers;
