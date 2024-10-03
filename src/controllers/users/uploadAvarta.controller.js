@@ -16,7 +16,8 @@ const UploadAvarta = async (req, res) => {
 
     const filePath = path.join("/avarta", file.filename);
     const formattedPath = filePath.replace(/\\/g, "/");
-    const fileAvartaPath = `${process.env.BASE_URL}:${process.env.PORT}/api${formattedPath}`;
+    const URL_LINK_AVARTA = process.env.NODE_ENV === "production" ? process.env.BASE_URL : process.env.BASE_URL_LOCAL;
+    const fileAvartaPath = `${URL_LINK_AVARTA}:${process.env.PORT}/api${formattedPath}`;
 
     // Luu vao database
     const sqlAddAvartaForUser = `
