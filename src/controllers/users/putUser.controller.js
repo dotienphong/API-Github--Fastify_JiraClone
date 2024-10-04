@@ -29,15 +29,24 @@ const PutUser = async (req, res, next) => {
       return {code: 401, message: "Can not change information administrator"};
     }
 
-    // Hash password
-    const hashedPassword = await hashPassword(password);
-    const sql = `
-      UPDATE "users" 
-      SET name = '${name}', 
-      password = '${hashedPassword}' 
-      WHERE email = '${email}' `;
-    await QueryDatabase(sql);
-    return {code: 200, message: "Update user success"};
+    if (!password || req.body.password == undefined) {
+      const sql = `
+        UPDATE "users" 
+        SET name = '${name}'
+        WHERE email = '${email}' 
+      `;
+      await QueryDatabase(sql);
+      return {code: 200, message: "Update user success"};
+    } else {
+      const hashedPassword = await hashPassword(password);
+      const sql = `
+        UPDATE "users" 
+        SET password = '${hashedPassword}', name = '${name}'
+        WHERE email = '${email}' 
+      `;
+      await QueryDatabase(sql);
+      return {code: 200, message: "Update user success"};
+    }
   } catch (error) {
     logger.error(error);
     res.status(500);

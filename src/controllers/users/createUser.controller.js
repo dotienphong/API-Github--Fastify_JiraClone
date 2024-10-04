@@ -35,7 +35,7 @@ const CreateUser = async (req, res, next) => {
 
     const sql = `
       INSERT INTO "users" (name, email, password , role) 
-      VALUES ('${name}', '${email}', '${hashedPassword}','${role}');
+      VALUES ('${name}', '${email}', '${hashedPassword}','0');
     `;
 
     await QueryDatabase(sql);
